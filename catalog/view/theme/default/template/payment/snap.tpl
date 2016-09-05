@@ -4,8 +4,19 @@
   <?php endforeach ?>
 <?php else: ?>
   <?php
-  if ($pay_type == 'snap'): ?>
+  if ($pay_type == 'snap'): 
+  
+  if($environment == 'production'){?>
+  <script src="https://app.veritrans.co.id/snap/snap.js"></script>
+  <?php
+  }
+  else{
+    ?>
   <script src="https://app.sandbox.veritrans.co.id/snap/snap.js"></script>
+  <?php
+  }
+  ?>
+  
   <form id="payment-form" method="post" action="index.php?route=payment/snap/landing_redir">
     <input type="hidden" name="result_type" id="result-type" value=""></div>
     <input type="hidden" name="result_data" id="result-data" value=""></div>
