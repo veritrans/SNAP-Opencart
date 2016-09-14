@@ -35,11 +35,7 @@ class ControllerPaymentSnapinst extends Controller {
 
       'entry_api_version',
       'entry_environment',
-      'entry_merchant',
       'entry_server_key',
-      'entry_hash',
-      'entry_test',
-      'entry_total',
       'entry_order_status',
       'entry_geo_zone',
       'entry_status',
@@ -48,10 +44,6 @@ class ControllerPaymentSnapinst extends Controller {
       'entry_payment_type',
       'entry_enable_bank_installment',
       'entry_currency_conversion',
-      'entry_client_key',
-      'entry_snapinst_success_mapping',
-      'entry_snapinst_failure_mapping',
-      'entry_snapinst_challenge_mapping',
       'entry_display_name',
       'entry_min_txn',
 

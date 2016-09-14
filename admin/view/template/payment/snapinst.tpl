@@ -105,25 +105,6 @@
 	</div>
 	<!-- minimum txn -->
 
-
-	<?php foreach (array('snapinst_success_mapping', 'snapinst_failure_mapping', 'snapinst_challenge_mapping') as $status): ?>
-		<div class="form-group required">
-		  <label class="col-sm-2 control-label" for="input-merchant-id"><?php echo ${'entry_' . $status} ?></label>
-		    <div class="col-sm-3">
-		     <select name="<?php echo 'midtrans_'. $status ?>" id="snapinstPaymentType" class="form-control">
-			  <?php foreach ($order_statuses as $option): ?>
-			  	<?php if($option['order_status_id'] == ${'midtrans_' . $status}) {	?>
-				<option value="<?php echo $option['order_status_id'] ?>" selected="selected" ><?php echo $option['name'] ?></option>
-				<?php } else { ?>
-				<option value="<?php echo $option['order_status_id']; ?>"><?php echo $option['name']; ?></option>
-				<?php } ?>
-				<?php endforeach ?>
-			  </select>
-			</div>
-		</div>
-	<?php endforeach ?>
-	<!-- Snap Mapping -->
-
 	<div class="form-group required">
 	 <label class="col-sm-2 control-label" for="input-merchant-id"><?php echo $entry_currency_conversion; ?></label>
 	  <div class="col-sm-3">

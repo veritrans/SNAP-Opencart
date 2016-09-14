@@ -24,9 +24,6 @@ $_['entry_geo_zone']     = 'Geo Zone:';
 $_['entry_status']       = 'Status:';
 $_['entry_sort_order']   = 'Sort Order:';
 $_['entry_currency_conversion'] = 'Currency conversion to IDR';
-$_['entry_snapinst_success_mapping'] = 'Map Payment Success Status to Order Status:';
-$_['entry_snapinst_challenge_mapping'] = 'Map Payment Challenge Status to Order Status:';
-$_['entry_snapinst_failure_mapping'] = 'Map Payment Failure Status to Order Status:';
 $_['entry_display_name'] = 'Display name:';
 $_['entry_min_txn'] 	 = 'Minimum Transaction';
 
