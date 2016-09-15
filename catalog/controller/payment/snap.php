@@ -33,11 +33,15 @@ class ControllerPaymentSnap extends Controller {
 
   	$data['process_order'] = $this->url->link('payment/snap/process_order');
 
-    if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/template/payment/snap.tpl')) {
+     if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/template/payment/snap.tpl')) {
         return $this->load->view($this->config->get('config_template') . '/template/payment/snap.tpl',$data);
-  	} else {
-  	  return $this->load->view('default/template/payment/snap.tpl', $data);
-  	}
+    } else {
+     if (VERSION > 2.1 ) {
+        return $this->load->view('payment/snap', $data);
+      } else {
+        return $this->load->view('default/template/payment/snap.tpl', $data);
+      }
+    }
 
   }
 
