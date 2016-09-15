@@ -106,47 +106,6 @@
 	</div>
 	<!-- Server Key (v2-specific) -->
 
-	<div class="form-group v2_settings sensitive required">
-	  <label class="col-sm-2 control-label" for="input-merchant-id">Enable Payments</label>
-	   <?php
-	   $payment_types = array(
-		   'credit_card' => 'Credit Card',
-		   'cimb_clicks' => 'CIMB Clicks',
-		   'mandiri_clickpay' => 'Mandiri ClickPay',
-		   'bank_transfer' => 'Permata VA',
-		   'bri_epay' 		=> 'Bri e-Pay',
-		   'telkomsel_cash'=> 'T-Cash',
-		   'xl_tunai' 		=> 'xl tunai',
-		   'echannel' 		=> 'Mandiri Bill',
-		   'cstore'		=> 'Indomaret',
-		   'indosat_dompetku' => 'Indosat Dompetku',
-		   'mandiri_ecash' => 'Mandiri Ecash'
-		);
-	   ?>
-		<div class="checkbox">
-		  <?php foreach ($payment_types as $key => $val): ?>
-		  <?php $isChecked = isset($snap_enabled_payments) && array_key_exists($key, $snap_enabled_payments)
-			&& $snap_enabled_payments[$key];
-		  ?>
-		  <label>
-			<input class="check-box" type="checkbox" value="on" name="snap_enabled_payments[<?php echo $key; ?>]" <?php if ($isChecked) echo 'checked'; ?>/>
-				<?php echo $val; ?>
-		  </label>
-		  <?php endforeach ?>
-		</div>
-	</div>
-	<!--enable payments-->
-
-	<div class="form-group v2_vtweb_settings sensitive required">
-	  <label class="col-sm-2 control-label" for="input-merchant-id"><?php echo $entry_3d_secure; ?></label>
-	   <div class="checkbox">
-		<label>
-		 <input type="checkbox" class="check-box" name="snap_3d_secure" <?php if ($snap_3d_secure) echo 'checked'; ?> />You must enable 3D Secure. Please contact us if you wish to disable this feature in the Production environment.
-		</label>
-	   </div>
-	</div>
-	<!--enable 3D secure-->
-
 	<?php foreach (array('snap_success_mapping', 'snap_failure_mapping', 'snap_challenge_mapping') as $status): ?>
 		<div class="form-group required">
 		  <label class="col-sm-2 control-label" for="input-merchant-id"><?php echo ${'entry_' . $status} ?></label>

@@ -204,8 +204,7 @@ class ControllerPaymentSnap extends Controller {
         $this->config->get('snap_environment') == 'production'
         ? true : false;
 
-    Veritrans_Config::$is3ds = $this->config->get('snap_3d_secure') == 'on'
-        ? true : false;
+    Veritrans_Config::$is3ds = true;
 
     Veritrans_Config::$isSanitized =
         $this->config->get('snap_sanitization') == 'on'
@@ -218,19 +217,6 @@ class ControllerPaymentSnap extends Controller {
     $payloads['customer_details']    = $customer_details;
 
     try {
-      $enabled_payments = array();
-      if ($this->config->has('snap_enabled_payments')) {
-        foreach ($this->config->get('snap_enabled_payments')
-            as $key => $value) {
-          $enabled_payments[] = $key;
-        }
-      }
-      if (empty($enabled_payments)) {
-        $enabled_payments[] = 'credit_card';
-      }
-
-      $payloads['enabled_payments'] = $enabled_payments;
-
       $snapToken = Veritrans_Snap::getSnapToken($payloads);      
       $redirUrl = 'index.php?route=payment/snap/exec&id='.$snapToken;
       
