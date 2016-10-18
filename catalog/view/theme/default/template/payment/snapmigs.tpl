@@ -4,15 +4,15 @@
   <?php endforeach ?>
 <?php else: ?>
   <?php
-  if ($pay_type == 'snap'): 
-  
+  if ($pay_type == 'snapmigs'): 
+
   if($environment == 'production'){?>
-  <script src="https://app.veritrans.co.id/snap/snap.js"></script>
+    <script src="https://app.veritrans.co.id/snap/snap.js"></script>
   <?php
   }
   else{
     ?>
-  <script src="https://app.sandbox.veritrans.co.id/snap/snap.js"></script>
+    <script src="https://app.sandbox.veritrans.co.id/snap/snap.js"></script>
   <?php
   }
   ?>
@@ -35,7 +35,7 @@
       $(this).attr("disabled", "disabled");
     
     $.ajax({
-      url: 'index.php?route=payment/snap/process_order',
+      url: 'index.php?route=payment/snapmigs/process_order',
       cache: false,
       beforeSend: function() {
         $('#button-confirm').button('loading');

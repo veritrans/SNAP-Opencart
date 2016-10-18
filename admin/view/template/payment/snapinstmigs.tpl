@@ -38,10 +38,10 @@
 	 <div class="form-group">
       <label class="col-sm-2 control-label" for="input-mode"><?php echo $entry_status; ?></label>
 		<div class="col-sm-3">
-		 <select name="snap_status" id="input-mode" class="form-control">
+		 <select name="snapinstmigs_status" id="input-mode" class="form-control">
 		  <?php $options = array('1' => $text_enabled, '0' => $text_disabled) ?>
 		   <?php foreach ($options as $key => $value): ?>
-		    <option value="<?php echo $key ?>" <?php if ($key == $snap_status) echo 'selected' ?> ><?php echo $value ?></option>
+		    <option value="<?php echo $key ?>" <?php if ($key == $snapinstmigs_status) echo 'selected' ?> ><?php echo $value ?></option>
 		   <?php endforeach ?>
 		  </select>
 		</div>
@@ -51,7 +51,7 @@
 	<div class="form-group required">
 	  <label class="col-sm-2 control-label" for="input-merchant-id"><?php echo $entry_display_name; ?></label>
 	   <div class="col-sm-3">
-		 <input type="text" name="snap_display_name" value="<?php echo $snap_display_name; ?>" id="input-merchant-id" class="form-control" />
+		 <input type="text" name="snapinstmigs_display_name" value="<?php echo $snapinstmigs_display_name; ?>" id="input-merchant-id" class="form-control" />
 	   </div>
 	   <div class="col-sm-3">
 	     <?php if (isset($error['display_name'])) { ?>
@@ -64,10 +64,10 @@
 	<div class="form-group v2_settings sensitive required">
 	  <label class="col-sm-2 control-label" for="input-mode"><?php echo $entry_environment; ?></label>
 	    <div class="col-sm-3">
-		  <select name="snap_environment" id="input-mode" class="form-control">
+		  <select name="snapinstmigs_environment" id="input-mode" class="form-control">
 		    <?php $options = array('development' => 'Sandbox', 'production' => 'Production') ?>
 			<?php foreach ($options as $key => $value): ?>
-			  <option value="<?php echo $key ?>" <?php if ($key == $snap_environment) echo 'selected' ?> ><?php echo $value ?></option>
+			  <option value="<?php echo $key ?>" <?php if ($key == $snapinstmigs_environment) echo 'selected' ?> ><?php echo $value ?></option>
 			<?php endforeach ?>
 		  </select>
 		</div>
@@ -78,25 +78,11 @@
 		</div>
 	</div>
 	<!-- Environment (v2-specific) -->
-						
-	<div class="form-group required v2_settings sensitive">
-	  <label class="col-sm-2 control-label" for="input-merchant-id"><?php echo $entry_client_key; ?></label>
-	    <div class="col-sm-3">
-		  <input type="text" name="snap_client_key" value="<?php echo $snap_client_key; ?>" id="input-merchant-id" class="form-control" />
-		</div>
-		<div class="col-sm-3">
-		 <?php if (isset($error['client_key'])) { ?>
-			<div class="col-sm-3"> <?php echo $error['client_key']; ?> </div>
-		 <?php } ?>
-		</div>
-	</div>
-	<!-- Client Key (v2-specific) -->
-
 
 	<div class="form-group required v2_settings sensitive">
 	  <label class="col-sm-2 control-label" for="input-merchant-id"><?php echo $entry_server_key; ?></label>
 		<div class="col-sm-3">
-		  <input type="text" name="snap_server_key" value="<?php echo $snap_server_key; ?>" id="input-merchant-id" class="form-control" />
+		  <input type="text" name="snapinstmigs_server_key" value="<?php echo $snapinstmigs_server_key; ?>" id="input-merchant-id" class="form-control" />
 		</div>
 		<div class="col-sm-3">
 		 <?php if (isset($error['server_key'])) { ?>
@@ -106,28 +92,23 @@
 	</div>
 	<!-- Server Key (v2-specific) -->
 
-	<?php foreach (array('snap_success_mapping', 'snap_failure_mapping', 'snap_challenge_mapping') as $status): ?>
-		<div class="form-group required">
-		  <label class="col-sm-2 control-label" for="input-merchant-id"><?php echo ${'entry_' . $status} ?></label>
-		    <div class="col-sm-3">
-		     <select name="<?php echo 'midtrans_'. $status ?>" id="snapPaymentType" class="form-control">
-			  <?php foreach ($order_statuses as $option): ?>
-			  	<?php if($option['order_status_id'] == ${'midtrans_' . $status}) {	?>
-				<option value="<?php echo $option['order_status_id'] ?>" selected="selected" ><?php echo $option['name'] ?></option>
-				<?php } else { ?>
-				<option value="<?php echo $option['order_status_id']; ?>"><?php echo $option['name']; ?></option>
-				<?php } ?>
-				<?php endforeach ?>
-			  </select>
-			</div>
+	<div class="form-group required v2_settings sensitive">
+	  <label class="col-sm-2 control-label" for="input-merchant-id"><?php echo $entry_min_txn; ?></label>
+		<div class="col-sm-3">
+		  <input type="text" name="snapinstmigs_min_txn" value="<?php echo $snapinstmigs_min_txn; ?>" id="input-min-txn" class="form-control" />
 		</div>
-	<?php endforeach ?>
-	<!-- Snap Mapping -->
+		<div class="col-sm-3">
+		 <?php if (isset($error['min_txn'])) { ?>
+		   <div class="col-sm-3"> <?php echo $error['min_txn']; ?> </div>
+		 <?php } ?>
+		</div>
+	</div>
+	<!-- minimum txn -->
 
 	<div class="form-group required">
 	 <label class="col-sm-2 control-label" for="input-merchant-id"><?php echo $entry_currency_conversion; ?></label>
 	  <div class="col-sm-3">
-	   <input type="text" name="snap_currency_conversion" value="<?php echo $snap_currency_conversion; ?>" class="form-control" />
+	   <input type="text" name="snapinstmigs_currency_conversion" value="<?php echo $snapinstmigs_currency_conversion; ?>" class="form-control" />
 		<span>Set to 1 if your default currency is IDR</span>
 	  </div>
 	  <div class="col-sm-3">
@@ -141,10 +122,10 @@
 	<div class="form-group v2_vtweb_settings">
 	 <label class="col-sm-2 control-label" for="input-merchant-id"><?php echo $entry_geo_zone; ?></label>
 	  <div class="col-sm-3">
-	   <select name="snap_geo_zone_id"  class="form-control">
+	   <select name="snapinstmigs_geo_zone_id"  class="form-control">
 		<option value="0"><?php echo $text_all_zones; ?></option>
 		<?php foreach ($geo_zones as $geo_zone) { ?>
-		  <?php if ($geo_zone['geo_zone_id'] == $snap_geo_zone_id) { ?>
+		  <?php if ($geo_zone['geo_zone_id'] == $snapinstmigs_geo_zone_id) { ?>
 		   <option value="<?php echo $geo_zone['geo_zone_id']; ?>" selected="selected"><?php echo $geo_zone['name']; ?></option>
 		 <?php } else { ?>
 		   <option value="<?php echo $geo_zone['geo_zone_id']; ?>"><?php echo $geo_zone['name']; ?></option>
@@ -158,7 +139,7 @@
 	<div class="form-group">
 	  <label class="col-sm-2 control-label" for="input-merchant-id"><?php echo $entry_sort_order; ?></label>
 		<div class="col-sm-1">
-		 <input size="1" type="text" name="snap_sort_order" value="<?php echo $snap_sort_order; ?>" class="form-control" />
+		 <input size="1" type="text" name="snapinstmigs_sort_order" value="<?php echo $snapinstmigs_sort_order; ?>" class="form-control" />
 		</div>
 	</div>
 	

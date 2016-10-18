@@ -27,12 +27,13 @@ class ControllerPaymentSnap extends Controller {
     $data['errors'] = array();
     $data['button_confirm'] = $this->language->get('button_confirm');
 
-    $data['pay_type'] = 'snap';
+  	$data['pay_type'] = 'snap';
+    $data['environment'] = $this->config->get('snap_environment');
     $data['text_loading'] = $this->language->get('text_loading');
 
-    $data['process_order'] = $this->url->link('payment/snap/process_order');
+  	$data['process_order'] = $this->url->link('payment/snap/process_order');
 
-    if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/template/payment/snap.tpl')) {
+     if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/template/payment/snap.tpl')) {
         return $this->load->view($this->config->get('config_template') . '/template/payment/snap.tpl',$data);
     } else {
      if (VERSION > 2.1 ) {
@@ -207,8 +208,7 @@ class ControllerPaymentSnap extends Controller {
         $this->config->get('snap_environment') == 'production'
         ? true : false;
 
-    Veritrans_Config::$is3ds = $this->config->get('snap_3d_secure') == 'on'
-        ? true : false;
+    Veritrans_Config::$is3ds = true;
 
     Veritrans_Config::$isSanitized =
         $this->config->get('snap_sanitization') == 'on'
@@ -221,23 +221,10 @@ class ControllerPaymentSnap extends Controller {
     $payloads['customer_details']    = $customer_details;
 
     try {
-      $enabled_payments = array();
-      if ($this->config->has('snap_enabled_payments')) {
-        foreach ($this->config->get('snap_enabled_payments')
-            as $key => $value) {
-          $enabled_payments[] = $key;
-        }
-      }
-      if (empty($enabled_payments)) {
-        $enabled_payments[] = 'credit_card';
-      }
-
-      $payloads['enabled_payments'] = $enabled_payments;
-
       $snapToken = Veritrans_Snap::getSnapToken($payloads);      
       $redirUrl = 'index.php?route=payment/snap/exec&id='.$snapToken;
       
-      $this->response->setOutput($redirUrl);
+      //$this->response->setOutput($redirUrl);
       $this->response->setOutput($snapToken);
     }
     catch (Exception $e) {
@@ -245,13 +232,6 @@ class ControllerPaymentSnap extends Controller {
       error_log($e->getMessage());
       echo $e->getMessage();
     }
-  }
-
-  public function xxx(){
-    $string = $_POST['response'];
-    error_log('response json');
-    error_log($string);
-    error_log(print_r(json_decode($_POST['response']),TRUE));
   }
 
   /**
@@ -262,10 +242,7 @@ class ControllerPaymentSnap extends Controller {
    */
   public function landing_redir() {
 
-    error_log('masuk ke landing redir');
     $this->load->model('checkout/order');
-    $model_order = $this->load->model('checkout/order');
-    error_log(print_r($model_order));
     $redirUrl = $this->config->get('config_ssl');
 
     //$this->cart->clear();
@@ -273,7 +250,6 @@ class ControllerPaymentSnap extends Controller {
     Veritrans_Config::$serverKey = $this->config->get('snap_server_key');
     Veritrans_Config::$isProduction = $this->config->get('snap_environment') == 'production' ? true : false;
 
-    
     $redirUrl = $this->url->link('checkout/success&');
     /*$result_data = $_POST['result_data'];
     $post_response = $_POST['response'];*/    
@@ -282,7 +258,6 @@ class ControllerPaymentSnap extends Controller {
     
     $response = isset($_POST['result_data']) ? json_decode($_POST['result_data']) : json_decode($_POST['response']);
     //error_log($response->va_numbers[0]->bank);
-    error_log(print_r($response,TRUE));
     $base_url = $this->config->get('snap_environment') == 'production' 
     ? "https://app.veritrans.co.id" : "https://app.sandbox.veritrans.co.id";
     
@@ -307,10 +282,7 @@ class ControllerPaymentSnap extends Controller {
 
     }else if( $transaction_status == 'pending' && in_array($payment_type, $channel)){
 
-      error_log('masuk pending');
-
       $check = Veritrans_Transaction::status($response->transaction_id);
-          error_log('hasil get status');
           error_log(print_r($check,TRUE));
 
       $this->model_checkout_order->addOrderHistory($response->order_id,1);
@@ -328,7 +300,7 @@ class ControllerPaymentSnap extends Controller {
       
       switch ($payment_type) {
         case "bank_transfer":
-             error_log('masuk bank transfer');
+             
           if($check->transaction_status == "settlement"){
 
               $this->model_checkout_order->addOrderHistory($this->session->data['order_id'],2);
@@ -425,29 +397,25 @@ class ControllerPaymentSnap extends Controller {
             break;
         }
 
-      error_log('slsai switch case');
+
       $this->document->setTitle('Payment has not complete yet!'); //Optional. Set the title of your web page.
            
+   /*   // We call this Fallback system
+      if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/template/payment/snap_exec.tpl')) { //if  file exists in your current template folder
+          $this->template = $this->config->get('config_template') . '/template/payment/snap_exec.tpl'; //get it
+      } else {
+          $this->template = 'default/template/payment/snap_exec.tpl'; //or get the file from the default folder
+      }
+   */
       $data['column_left'] = $this->load->controller('common/column_left');
       $data['column_right'] = $this->load->controller('common/column_right');
       $data['content_top'] = $this->load->controller('common/content_top');
       $data['content_bottom'] = $this->load->controller('common/content_bottom');
       $data['footer'] = $this->load->controller('common/footer');
       $data['header'] = $this->load->controller('common/header');
+      $this->response->setOutput($this->load->view('default/template/payment/snap_exec.tpl',$data));
 
-      if (VERSION >= 2.1 ) {
-        $this->response->setOutput($this->load->view('payment/snap_exec',$data));
-      }else{
-
-        if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/template/payment/snap_exec.tpl')) {
-          $this->response->setOutput($this->load->view($this->config->get('config_template') . '/template/payment/snap_exec.tpl', $data));
-        } else {
-          $this->response->setOutput($this->load->view('default/template/payment/snap_exec.tpl', $data));
-        }
-
-      }
-
-    }  
+    }
     else{
       $redirUrl = $this->url->link('payment/snap/failure','','SSL');
       $this->response->redirect($redirUrl); 
@@ -526,7 +494,7 @@ class ControllerPaymentSnap extends Controller {
       $this->model_checkout_order->addOrderHistory(
           $notif->order_id,8,'Update Deny from snap notif.');
     }
-    else if ($transaction == 'pending') {
+	  else if ($transaction == 'pending') {
       $logs .= 'pending ';
       $this->model_checkout_order->addOrderHistory(
           $notif->order_id,1,'update pending from snap notif.');
