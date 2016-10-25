@@ -5,7 +5,7 @@ $_['heading_title']      = 'Snap Migs';
 // Text
 $_['text_payment']       = 'Payment';
 $_['text_success']       = 'Success: You have modified Veritrans account details!';
-$_['text_snapmigs']     = '<a href="https://veritrans.co.id" target="_blank"><img src="view/image/payment/veritrans.png" width="120px" alt="Veritrans" title="Snap" style="border: 1px solid #EEEEEE;" /></a>';
+$_['text_snapmigs']     = '<a href="https://midtrans.com" target="_blank"><img src="view/image/payment/midtrans.png" width="120px" alt="Midtrans" title="Snap" style="border: 1px solid #EEEEEE;" /></a>';
 $_['text_live']          = 'Production';
 $_['text_successful']    = 'Always Successful';
 $_['text_fail']          = 'Always Fail';
