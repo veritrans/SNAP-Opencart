@@ -7,15 +7,19 @@
   if ($pay_type == 'snapinst'): 
 
   if($environment == 'production'){?>
-    <script src="https://app.veritrans.co.id/snap/snap.js"></script>
+    <script src="https://app.midtrans.com/snap/snap.js"></script>
   <?php
   }
   else{
     ?>
-    <script src="https://app.sandbox.veritrans.co.id/snap/snap.js"></script>
+  <script src="https://app.sandbox.midtrans.com/snap/snap.js"></script>
   <?php
   }
   ?>
+
+  <div class="pull-left">
+    <h4>Transaction below <?php echo $min_txn?> will be treated as full payment</h4>
+  </div>
   
   <form id="payment-form" method="post" action="index.php?route=payment/snap/landing_redir">
     <input type="hidden" name="result_type" id="result-type" value=""></div>
