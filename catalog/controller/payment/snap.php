@@ -222,8 +222,7 @@ class ControllerPaymentSnap extends Controller {
 
     try {
       $snapToken = Veritrans_Snap::getSnapToken($payloads);      
-      $redirUrl = 'index.php?route=payment/snap/exec&id='.$snapToken;
-      
+      error_log($snapToken);    
       //$this->response->setOutput($redirUrl);
       $this->response->setOutput($snapToken);
     }
@@ -257,6 +256,7 @@ class ControllerPaymentSnap extends Controller {
     //error_log(print_r(json_decode($result_data),TRUE));
     
     $response = isset($_POST['result_data']) ? json_decode($_POST['result_data']) : json_decode($_POST['response']);
+    error_log(print_r($response,TRUE));
     //error_log($response->va_numbers[0]->bank);
     $base_url = $this->config->get('snap_environment') == 'production' 
     ? "https://app.veritrans.co.id" : "https://app.sandbox.veritrans.co.id";
@@ -276,14 +276,13 @@ class ControllerPaymentSnap extends Controller {
 
     }else if( $transaction_status == 'deny') {
       //if deny, redirect to order checkout page again
-      error_log('masuk ke deny case');
+      
       $redirUrl = $this->url->link('payment/snap/failure','','SSL');
       $this->response->redirect($redirUrl);
 
     }else if( $transaction_status == 'pending' && in_array($payment_type, $channel)){
 
       $check = Veritrans_Transaction::status($response->transaction_id);
-          error_log(print_r($check,TRUE));
 
       $this->model_checkout_order->addOrderHistory($response->order_id,1);
       $this->cart->clear();
@@ -366,8 +365,8 @@ class ControllerPaymentSnap extends Controller {
             'payment_type' => $payment_type,
             'payment_method' => "Indomaret",  
             'instruction'      => $base_url . $response->pdf_url,
-            'payment_code' => $response->payment_code,
-            'expire' => $response->indomaret_expire_time
+            'payment_code' => $response->payment_code
+            //'expire' => $response->indomaret_expire_time
             );         
 
             break;
@@ -500,9 +499,9 @@ class ControllerPaymentSnap extends Controller {
           $notif->order_id,1,'update pending from snap notif.');
     }
     else if ($transaction == 'expire') {
-      $logs .= 'pending ';
+      $logs .= 'expire ';
       $this->model_checkout_order->addOrderHistory(
-          $notif->order_id,1,'Update Expire from snap notif.');
+          $notif->order_id,7,'Update Expire from snap notif.');
     }
     else if ($transaction == 'settlement') {
           if($payment_type != 'credit_card'){
