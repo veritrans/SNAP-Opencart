@@ -282,7 +282,7 @@ class ControllerPaymentSnap extends Controller {
 
     }else if( $transaction_status == 'pending' && in_array($payment_type, $channel)){
 
-      $check = Veritrans_Transaction::status($response->transaction_id);
+      $check = Veritrans_Transaction::status($response->order_id);
 
       $this->model_checkout_order->addOrderHistory($response->order_id,1);
       $this->cart->clear();
