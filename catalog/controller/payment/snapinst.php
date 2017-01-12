@@ -29,6 +29,7 @@ class ControllerPaymentSnapinst extends Controller {
 
     $data['pay_type'] = 'snapinst';
     $data['environment'] = $this->config->get('snapinst_environment');
+    $data['min_txn'] = $this->config->get('snapinst_min_txn');
     $data['text_loading'] = $this->language->get('text_loading');
 
     $data['process_order'] = $this->url->link('payment/snapinst/process_order');
@@ -213,7 +214,7 @@ class ControllerPaymentSnapinst extends Controller {
         $this->config->get('snapinst_sanitization') == 'on'
         ? true : false;
 
-
+    $min_txn = $this->config->get('snapinst_min_txn');
     $credit_card['save_card'] = true;
     $installment = array();
     $installment_term = array();
@@ -221,13 +222,14 @@ class ControllerPaymentSnapinst extends Controller {
     $installment_term['bni'] = array(3,6,9,12,18,24,36);
     $installment_term['mandiri'] = array(3,6,9,12,18,24,36);
     $installment_term['cimb'] = array(3,6,9,12,18,24,36);
-    $installment_term['offline'] = array(1,2,3,4,5,6,12);
 
     $installment['required'] = TRUE;
     $installment['terms'] = $installment_term;    
 
-    $credit_card['installment'] = $installment;
-
+    if($transaction_details['gross_amount'] < $min_txn){
+      $credit_card['installment'] = $installment;  
+    }
+    
     $payloads = array();
     $payloads['transaction_details'] = $transaction_details;
     $payloads['item_details']        = $item_details;

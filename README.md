@@ -21,13 +21,13 @@ This is the official Veritrans extension for the OpenCart E-commerce platform.
 
 5. Login into your Veritrans account and change the following options:
 
-  * **Payment Notification URL** in Settings to `http://[your shop's homepage]/index.php?route=payment/snap/payment_notification`
+  * **Payment Notification URL** in Settings to `http://[your shop's homepage]/index.php?route=extension/payment/snap/payment_notification`
 
-  * **Finish Redirect URL** in Settings to `http://[your shop’s homepage]/index.php?route=payment/snap/landing_redir&`
+  * **Finish Redirect URL** in Settings to `http://[your shop’s homepage]/index.php?route=extension/payment/snap/landing_redir&`
 
-  * **Error Redirect URL** in Settings to `http://[your shop’s homepage]/index.php?route=payment/snap/landing_redir&`
+  * **Error Redirect URL** in Settings to `http://[your shop’s homepage]/index.php?route=extension/payment/snap/landing_redir&`
 
-  * **Unfinish Redirect URL** in Settings to `http://[your shop’s homepage]/index.php?route=payment/snap/landing_redir&`
+  * **Unfinish Redirect URL** in Settings to `http://[your shop’s homepage]/index.php?route=extension/payment/snap/landing_redir&`
 
 ### Get Help
 
