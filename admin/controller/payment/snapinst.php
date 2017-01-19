@@ -36,6 +36,7 @@ class ControllerPaymentSnapinst extends Controller {
       'entry_api_version',
       'entry_environment',
       'entry_server_key',
+      'entry_client_key',
       'entry_order_status',
       'entry_geo_zone',
       'entry_status',
@@ -88,6 +89,7 @@ class ControllerPaymentSnapinst extends Controller {
     $inputs = array(
       'snapinst_environment',
       'snapinst_server_key',
+      'snapinst_client_key',
       'snapinst_test',
       'snapinst_total',
       'snapinst_order_status_id',

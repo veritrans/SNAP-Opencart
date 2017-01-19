@@ -96,6 +96,7 @@ class ControllerPaymentSnapbin extends Controller {
     $inputs = array(
       'snapbin_environment',
       'snapbin_server_key',
+      'snapbin_client_key',
       'snapbin_test',
       'snapbin_total',
       'snapbin_order_status_id',

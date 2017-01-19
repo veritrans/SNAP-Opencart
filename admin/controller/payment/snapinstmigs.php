@@ -96,6 +96,7 @@ class ControllerPaymentSnapinstmigs extends Controller {
     $inputs = array(
       'snapinstmigs_environment',
       'snapinstmigs_server_key',
+      'snapinstmigs_client_key',
       'snapinstmigs_test',
       'snapinstmigs_total',
       'snapinstmigs_order_status_id',

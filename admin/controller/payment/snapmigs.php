@@ -37,6 +37,7 @@ class ControllerPaymentSnapmigs extends Controller {
       'entry_environment',
       'entry_merchant',
       'entry_server_key',
+      'entry_client_key',
       'entry_test',
       'entry_total',
       'entry_order_status',
@@ -89,6 +90,7 @@ class ControllerPaymentSnapmigs extends Controller {
     $inputs = array(
       'snapmigs_environment',
       'snapmigs_server_key',
+      'snapmigs_client_key',
       'snapmigs_order_status_id',
       'snapmigs_geo_zone_id',
       'snapmigs_sort_order',
