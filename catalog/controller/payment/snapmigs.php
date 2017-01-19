@@ -29,6 +29,7 @@ class ControllerPaymentSnapmigs extends Controller {
 
     $data['pay_type'] = 'snapmigs';
     $data['environment'] = $this->config->get('snapmigs_environment');
+    $data['client_key'] = $this->config->get('snapmigs_client_key');
     $data['text_loading'] = $this->language->get('text_loading');
 
     $data['process_order'] = $this->url->link('payment/snapmigs/process_order');
