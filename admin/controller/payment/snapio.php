@@ -37,6 +37,7 @@ class ControllerPaymentSnapio extends Controller {
       'entry_environment',
       'entry_merchant',
       'entry_server_key',
+      'entry_client_key',
       'entry_hash',
       'entry_test',
       'entry_total',
@@ -96,6 +97,7 @@ class ControllerPaymentSnapio extends Controller {
     $inputs = array(
       'snapio_environment',
       'snapio_server_key',
+      'snapio_client_key',
       'snapio_test',
       'snapio_total',
       'snapio_order_status_id',

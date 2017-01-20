@@ -29,6 +29,7 @@ class ControllerPaymentSnapio extends Controller {
 
     $data['pay_type'] = 'snapio';
     $data['environment'] = $this->config->get('snapio_environment');
+    $data['client_key'] = $this->config->get('snapio_client_key');
     $data['min_txn'] = $this->config->get('snapio_min_txn');
     $data['text_loading'] = $this->language->get('text_loading');
 

@@ -29,6 +29,7 @@ class ControllerPaymentSnap extends Controller {
 
   	$data['pay_type'] = 'snap';
     $data['environment'] = $this->config->get('snap_environment');
+    $data['client_key'] = $this->config->get('snap_client_key');
     $data['text_loading'] = $this->language->get('text_loading');
 
   	$data['process_order'] = $this->url->link('payment/snap/process_order');

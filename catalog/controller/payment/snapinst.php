@@ -29,6 +29,7 @@ class ControllerPaymentSnapinst extends Controller {
 
     $data['pay_type'] = 'snapinst';
     $data['environment'] = $this->config->get('snapinst_environment');
+    $data['client_key'] = $this->config->get('snapinst_client_key');
     $data['min_txn'] = $this->config->get('snapinst_min_txn');
     $data['text_loading'] = $this->language->get('text_loading');
 

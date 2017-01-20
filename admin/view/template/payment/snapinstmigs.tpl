@@ -93,6 +93,19 @@
 	<!-- Server Key (v2-specific) -->
 
 	<div class="form-group required v2_settings sensitive">
+	  <label class="col-sm-2 control-label" for="input-merchant-id"><?php echo $entry_client_key; ?></label>
+		<div class="col-sm-3">
+		  <input type="text" name="snapinstmigs_client_key" value="<?php echo $snapinstmigs_client_key; ?>" id="input-merchant-id" class="form-control" />
+		</div>
+		<div class="col-sm-3">
+		 <?php if (isset($error['client_key'])) { ?>
+		   <div class="col-sm-3"> <?php echo $error['client_key']; ?> </div>
+		 <?php } ?>
+		</div>
+	</div>
+	<!-- Client Key (v2-specific) -->
+
+	<div class="form-group required v2_settings sensitive">
 	  <label class="col-sm-2 control-label" for="input-merchant-id"><?php echo $entry_min_txn; ?></label>
 		<div class="col-sm-3">
 		  <input type="text" name="snapinstmigs_min_txn" value="<?php echo $snapinstmigs_min_txn; ?>" id="input-min-txn" class="form-control" />

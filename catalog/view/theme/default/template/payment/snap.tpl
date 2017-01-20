@@ -7,12 +7,12 @@
   if ($pay_type == 'snap'): 
   
   if($environment == 'production'){?>
-  <script src="https://app.midtrans.com/snap/snap.js"></script>
+  <script src="https://app.midtrans.com/snap/snap.js" data-client-key="<?php echo $client_key;?>"></script>
   <?php
   }
   else{
     ?>
-  <script src="https://app.sandbox.midtrans.com/snap/snap.js"></script>
+  <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="<?php echo $client_key;?>"></script>
   <?php
   }
   ?>
@@ -21,7 +21,6 @@
     <input type="hidden" name="result_type" id="result-type" value=""></div>
     <input type="hidden" name="result_data" id="result-data" value=""></div>
   <div class="buttons">
-
 		<div class="pull-right"> 
     <input type="submit" value="<?php echo $button_confirm ?>" id="button-confirm" class="btn btn-primary " data-loading-text="<?php echo $text_loading; ?>"  />
     </form>

@@ -29,6 +29,7 @@ class ControllerPaymentSnapbin extends Controller {
 
     $data['pay_type'] = 'snapbin';
     $data['environment'] = $this->config->get('snapbin_environment');
+    $data['client_key'] = $this->config->get('snapbin_client_key');
     error_log($this->config->get('snapbin_environment'));
     $data['text_loading'] = $this->language->get('text_loading');
 

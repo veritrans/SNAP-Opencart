@@ -93,6 +93,19 @@
 	<!-- Server Key (v2-specific) -->
 
 	<div class="form-group required v2_settings sensitive">
+	  <label class="col-sm-2 control-label" for="input-merchant-id"><?php echo $entry_client_key; ?></label>
+		<div class="col-sm-3">
+		  <input type="text" name="snapbin_client_key" value="<?php echo $snapbin_client_key; ?>" id="input-merchant-id" class="form-control" />
+		</div>
+		<div class="col-sm-3">
+		 <?php if (isset($error['client_key'])) { ?>
+		   <div class="col-sm-3"> <?php echo $error['client_key']; ?> </div>
+		 <?php } ?>
+		</div>
+	</div>
+	<!-- Server Key (v2-specific) -->
+
+	<div class="form-group required v2_settings sensitive">
 	  <label class="col-sm-2 control-label" for="input-merchant-id"><?php echo $entry_bin_number; ?></label>
 		<div class="col-sm-3">
 		  <input type="text" name="snapbin_bin_number" value="<?php echo $snapbin_bin_number; ?>" id="input-bin-number" class="form-control" />
