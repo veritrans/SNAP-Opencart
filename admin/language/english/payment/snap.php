@@ -14,8 +14,6 @@ $_['text_edit']          = 'Configure Veritrans Payment Gateway';
 // Entry
 $_['entry_api_version']  = 'API Version';
 $_['entry_environment']  = 'Environment'; // v2 API only
-$_['entry_merchant']     = 'Merchant ID:'; // v1 API only
-$_['entry_hash']     	   = 'Merchant Hash Key'; // v1 API only
 $_['entry_client_key']   = 'Client Key'; // v2 API only
 $_['entry_server_key']   = 'Server Key'; // v2 API only
 $_['entry_3d_secure']    = 'Enable 3D Secure?';
@@ -25,6 +23,7 @@ $_['entry_total']        = 'Total:<br /><span class="help">The checkout total th
 $_['entry_order_status'] = 'Order Status:';
 $_['entry_geo_zone']     = 'Geo Zone:';
 $_['entry_status']       = 'Status:';
+$_['entry_oneclick']     = 'One click:';
 $_['entry_sort_order']   = 'Sort Order:';
 $_['entry_currency_conversion'] = 'Currency conversion to IDR';
 $_['entry_snap_success_mapping'] = 'Map Payment Success Status to Order Status:';

@@ -201,9 +201,8 @@ class ControllerPaymentSnap extends Controller {
         );
       $item_details[] = $coupon_item;
     }
-
-    Veritrans_Config::$serverKey = $this->config->
-        get('snap_server_key');
+    $serverKey = $this->config->get('snap_server_key');
+    Veritrans_Config::$serverKey = $serverKey;
 
     Veritrans_Config::$isProduction =
         $this->config->get('snap_environment') == 'production'
@@ -211,17 +210,28 @@ class ControllerPaymentSnap extends Controller {
 
     Veritrans_Config::$is3ds = true;
 
-    Veritrans_Config::$isSanitized =
-        $this->config->get('snap_sanitization') == 'on'
-        ? true : false;
+    Veritrans_Config::$isSanitized = true;
 
+    $credit_card['secure'] = true;
+    $credit_card['save_card'] = true;
 
     $payloads = array();
     $payloads['transaction_details'] = $transaction_details;
     $payloads['item_details']        = $item_details;
     $payloads['customer_details']    = $customer_details;
+    
+    error_log('snap oneclick value  ='.$this->config->get('snap_oneclick'));
+    
+    if($this->config->get('snap_oneclick') == 1){
+      $payloads['credit_card'] = $credit_card;
+      $payloads['user_id'] = crypt( $order_info['email'], $serverKey );;
+    }
+    
+
+    
 
     try {
+      error_log(print_r($payloads,TRUE));
       $snapToken = Veritrans_Snap::getSnapToken($payloads);      
       error_log($snapToken);    
       //$this->response->setOutput($redirUrl);
