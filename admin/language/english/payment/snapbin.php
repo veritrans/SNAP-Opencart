@@ -23,6 +23,7 @@ $_['entry_total']        = 'Total:<br /><span class="help">The checkout total th
 $_['entry_order_status'] = 'Order Status:';
 $_['entry_geo_zone']     = 'Geo Zone:';
 $_['entry_status']       = 'Status:';
+$_['entry_oneclick']     = 'One click:';
 $_['entry_sort_order']   = 'Sort Order:';
 $_['entry_currency_conversion'] = 'Currency conversion to IDR';
 $_['entry_display_name'] = 'Display name:';
