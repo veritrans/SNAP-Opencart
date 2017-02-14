@@ -106,6 +106,19 @@
 	<!-- Client Key (v2-specific) -->
 
 	<div class="form-group required v2_settings sensitive">
+      <label class="col-sm-2 control-label" for="input-mode"><?php echo $entry_oneclick; ?></label>
+		<div class="col-sm-3">
+		 <select name="snapmigs_oneclick" id="input-mode" class="form-control">
+		  <?php $options = array('1' => $text_enabled, '0' => $text_disabled) ?>
+		   <?php foreach ($options as $key => $value): ?>
+		    <option value="<?php echo $key ?>" <?php if ($key == $snapmigs_oneclick) echo 'selected' ?> ><?php echo $value ?></option>
+		   <?php endforeach ?>
+		  </select>
+		</div>
+	 </div>
+	 <!-- one click -->
+
+	<div class="form-group required v2_settings sensitive">
 	  <label class="col-sm-2 control-label" for="input-merchant-id"><?php echo $entry_bank; ?></label>
 		<div class="col-sm-3">
 		  <input type="text" name="snapmigs_bank" value="<?php echo $snapmigs_bank; ?>" id="input-min-txn" class="form-control" />
@@ -117,7 +130,7 @@
 		 <?php } ?>
 		</div>
 	</div>
-	<!-- minimum txn -->
+	<!-- bank -->
 
 	<div class="form-group required">
 	 <label class="col-sm-2 control-label" for="input-merchant-id"><?php echo $entry_currency_conversion; ?></label>
