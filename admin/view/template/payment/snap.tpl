@@ -106,6 +106,19 @@
 	</div>
 	<!-- Server Key (v2-specific) -->
 
+	 <div class="form-group required v2_settings sensitive">
+      <label class="col-sm-2 control-label" for="input-mode"><?php echo $entry_oneclick; ?></label>
+		<div class="col-sm-3">
+		 <select name="snap_oneclick" id="input-mode" class="form-control">
+		  <?php $options = array('1' => $text_enabled, '0' => $text_disabled) ?>
+		   <?php foreach ($options as $key => $value): ?>
+		    <option value="<?php echo $key ?>" <?php if ($key == $snap_oneclick) echo 'selected' ?> ><?php echo $value ?></option>
+		   <?php endforeach ?>
+		  </select>
+		</div>
+	 </div>
+	 <!-- Server Key (v2-specific) -->
+
 	<div class="form-group required">
 	 <label class="col-sm-2 control-label" for="input-merchant-id"><?php echo $entry_currency_conversion; ?></label>
 	  <div class="col-sm-3">
