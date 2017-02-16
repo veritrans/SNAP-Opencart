@@ -225,10 +225,7 @@ class ControllerPaymentSnap extends Controller {
     if($this->config->get('snap_oneclick') == 1){
       $payloads['credit_card'] = $credit_card;
       $payloads['user_id'] = crypt( $order_info['email'], $serverKey );;
-    }
-    
-
-    
+    }  
 
     try {
       error_log(print_r($payloads,TRUE));
@@ -423,7 +420,12 @@ class ControllerPaymentSnap extends Controller {
       $data['content_bottom'] = $this->load->controller('common/content_bottom');
       $data['footer'] = $this->load->controller('common/footer');
       $data['header'] = $this->load->controller('common/header');
-      $this->response->setOutput($this->load->view('default/template/payment/snap_exec.tpl',$data));
+      if (VERSION > 2.1 ) {
+        $this->response->setOutput($this->load->view('payment/snap_exec',$data));
+      }
+      else{
+        $this->response->setOutput($this->load->view('default/template/payment/snap_exec.tpl',$data));  
+      }
 
     }
     else{
@@ -455,8 +457,16 @@ class ControllerPaymentSnap extends Controller {
     if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/template/payment/snap_checkout_failure.tpl')) {
       $this->response->setOutput($this->load->view($this->config->get('config_template') . '/template/payment/snap_checkout_failure.tpl', $data));
     } else {
-      $this->response->setOutput($this->load->view('default/template/payment/snap_checkout_failure.tpl', $data));
+
+      if (VERSION > 2.1 ) {
+        $this->response->setOutput($this->load->view('payment/snap_checkout_failure',$data));
+      }
+      else{
+        $this->response->setOutput($this->load->view('default/template/payment/snap_checkout_failure.tpl', $data));
+      }
+      
     }
+
   }
 
   // Response early with 200 OK status for Midtrans notification & handle HTTP GET
