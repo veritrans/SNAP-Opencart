@@ -212,6 +212,15 @@ class ControllerPaymentSnap extends Controller {
 
     Veritrans_Config::$isSanitized = true;
 
+    $custom_field = array();
+    $custom_field[1] = $this->config->get('snap_custom_field1');
+    $custom_field[2] = $this->config->get('snap_custom_field2');
+    $custom_field[3] = $this->config->get('snap_custom_field3');
+
+    $expiry_unit = $this->config->get('snap_expiry_unit');
+    $expiry_duration = $this->config->get('snap_expiry_duration');
+    
+
     $credit_card['secure'] = true;
     $credit_card['save_card'] = true;
 
@@ -224,8 +233,21 @@ class ControllerPaymentSnap extends Controller {
     
     if($this->config->get('snap_oneclick') == 1){
       $payloads['credit_card'] = $credit_card;
-      $payloads['user_id'] = crypt( $order_info['email'], $serverKey );;
+      $payloads['user_id'] = crypt( $order_info['email'], $serverKey );
     }  
+
+    if (!empty($expiry_unit) && !empty($expiry_duration)){
+          $time = time();
+          $payloads['expiry'] = array(
+            'start_time' => date("Y-m-d H:i:s O",$time), 
+            'unit' => $expiry_unit, 
+            'duration'  => $expiry_duration
+          );
+    }
+
+    if(!empty($custom_field[1])){$payloads['custom_field1'] = $custom_field[1];}
+    if(!empty($custom_field[2])){ $payloads['custom_field2'] = $custom_field[2];}
+    if(!empty($custom_field[3])){ $payloads['custom_field3'] = $custom_field[3];}
 
     try {
       error_log(print_r($payloads,TRUE));
