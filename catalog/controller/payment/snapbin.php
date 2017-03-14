@@ -202,7 +202,7 @@ class ControllerPaymentSnapbin extends Controller {
       $item_details[] = $coupon_item;
     }
 
-    $serverKey = $this->config->get('snap_server_key');
+    $serverKey = $this->config->get('snapbin_server_key');
     Veritrans_Config::$serverKey = $serverKey;
 
     Veritrans_Config::$isProduction =
