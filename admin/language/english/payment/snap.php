@@ -5,7 +5,7 @@ $_['heading_title']      = 'Snap';
 // Text
 $_['text_payment']       = 'Payment';
 $_['text_success']       = 'Success: You have modified Veritrans account details!';
-$_['text_snap']     = '<a href="https://midtrans.com" target="_blank"><img src="view/image/payment/midtrans.png" width="120px" alt="Midtrans" title="Snap" style="border: 1px solid #EEEEEE;" /></a>';
+$_['text_snap']          = '<a href="https://midtrans.com" target="_blank"><img src="view/image/payment/midtrans.png" width="120px" alt="Midtrans" title="Snap" style="border: 1px solid #EEEEEE;" /></a>';
 $_['text_live']          = 'Production';
 $_['text_successful']    = 'Always Successful';
 $_['text_fail']          = 'Always Fail';
@@ -24,6 +24,8 @@ $_['entry_order_status'] = 'Order Status:';
 $_['entry_geo_zone']     = 'Geo Zone:';
 $_['entry_status']       = 'Status:';
 $_['entry_oneclick']     = 'One click:';
+$_['entry_expiry']       = 'Custom Expiry Duration';
+$_['entry_custom_field'] = 'Custom field';
 $_['entry_sort_order']   = 'Sort Order:';
 $_['entry_currency_conversion'] = 'Currency conversion to IDR';
 $_['entry_snap_success_mapping'] = 'Map Payment Success Status to Order Status:';
