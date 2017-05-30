@@ -342,7 +342,7 @@ class ControllerPaymentSnap extends Controller {
             $data['data']= array(
             'payment_type' => $payment_type,  
             'payment_method' => "BCA Virtual Account",
-            'instruction' => $base_url . $response->pdf_url,
+            'instruction' => $response->pdf_url,
             'payment_code' => $response->bca_va_number,
             );         
               
@@ -352,7 +352,7 @@ class ControllerPaymentSnap extends Controller {
             $data['data']= array(
             'payment_type' => $payment_type,
             'payment_method' => "Permata Virtual Account",
-            'instruction' => $base_url . $response->pdf_url,
+            'instruction' => $response->pdf_url,
             'payment_code' => $response->permata_va_number,
             );         
               
@@ -373,7 +373,7 @@ class ControllerPaymentSnap extends Controller {
             $data['data']= array(
             'payment_type' => $payment_type,
             'payment_method' => "Mandiri Bill Payment",  
-            'instruction'  => $base_url . $response->pdf_url,
+            'instruction'  => $response->pdf_url,
             'company_code' => $response->biller_code,
             'payment_code' => $response->bill_key,
             );         
@@ -393,7 +393,7 @@ class ControllerPaymentSnap extends Controller {
             $data['data']= array(
             'payment_type' => $payment_type,
             'payment_method' => "Indomaret",  
-            'instruction'      => $base_url . $response->pdf_url,
+            'instruction'      => $response->pdf_url,
             'payment_code' => $response->payment_code
             //'expire' => $response->indomaret_expire_time
             );         
