@@ -155,7 +155,7 @@
 	  <div class="col-sm-12">
 	  </div>
 	</div>
-	<!-- Currency -->
+	<!-- custom field  -->
 
 	<div class="form-group required">
 	 <label class="col-sm-2 control-label" for="input-merchant-id"><?php echo $entry_currency_conversion; ?></label>
@@ -196,7 +196,7 @@
 	</div>
 	
 	<div>
-	 <center><font size="1">version 0.1</font></center>
+	 <center><font size="1">version 1.0</font></center>
 	</div>
 
    </form>

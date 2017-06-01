@@ -157,7 +157,7 @@
 	</div>
 	
 	<div>
-	 <center><font size="1">version 0.1</font></center>
+	 <center><font size="1">version 1.0</font></center>
 	</div>
 
    </form>
