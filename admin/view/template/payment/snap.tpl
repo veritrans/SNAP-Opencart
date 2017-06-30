@@ -196,7 +196,7 @@
 	</div>
 	
 	<div>
-	 <center><font size="1">version 1.0</font></center>
+	 <center><font size="1">version 1.1</font></center>
 	</div>
 
    </form>

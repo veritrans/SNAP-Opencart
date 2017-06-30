@@ -28,7 +28,7 @@
 	</div>
 
   <script> 
-  
+    
     $('#button-confirm').click(function (event) {
       event.preventDefault();
       $(this).attr("disabled", "disabled");
@@ -58,7 +58,7 @@
         }
 
         snap.pay(data, {
-          
+          skipOrderSummary: true, 
           onSuccess: function(result){
             changeResult('success', result);
             console.log(result.status_message);
@@ -73,6 +73,24 @@
             changeResult('error', result);
             console.log(result.status_message);
             $("#payment-form").submit();
+          },
+          onClose: function(){
+            var c =  confirm("close button clicked. Do you really want to cancel your transaction?");
+            var baseurl = "<?php echo $base;?>";
+            if (c == true){
+              $.ajax({
+                url: 'index.php?route=payment/snap/payment_cancel',
+                cache: false,
+                success: function(data){
+                  console.log('order canceled');
+                  window.location.replace(baseurl+"index.php?route=payment/snap/failure");
+                }
+              });  
+            }
+            else{
+              document.getElementById("button-confirm").click();
+            }
+            
           }
         });
       }
