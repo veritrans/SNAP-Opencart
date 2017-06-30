@@ -23,11 +23,12 @@
     <?php } ?>
 
     <div id="content" class="<?php echo $class; ?>"><?php echo $content_top; ?>
-      <h1>Payment has not complete yet!</h1>
+      
       <?php
       switch ($data["payment_type"]) {
       case "bank_transfer":
       ?>
+      <h1>Payment has not complete yet!</h1>
         your order has been received but has not been paid yet</br>
         you place order with <b><?=$data['payment_method']?></b></br>
         your va number : <b><?=$data['payment_code']?></b></br>
@@ -36,6 +37,7 @@
       break;
       case "echannel"
       ?>
+      <h1>Payment has not complete yet!</h1>
         your order has been received but has not been paid yet</br>
         you place order with <b><?=$data['payment_method']?></b></br>
         your payment code and company code : <b><?=$data['payment_code']?></b> and <b><?=$data['company_code']?></b></br>
@@ -45,6 +47,7 @@
       break;
       case "cstore"
       ?>
+      <h1>Payment has not complete yet!</h1>
         your order has been received but has not been paid yet</br>
         you place order with <b><?=$data['payment_method']?></b></br>
         your payment code : <b><?=$data['payment_code']?></b></br>
@@ -53,11 +56,22 @@
       break;
       case "xl_tunai"
       ?>
+      <h1>Payment has not complete yet!</h1>
         your order has been received but has not been paid yet</br>
         you place order with <b><?=$data['payment_method']?></b></br>
         your Xl Tunai order id : <b><?=$data['xl_tunai_order_id']?></b></br>
         your Xl Tunai merchant code : <b><?=$data['merchant_code']?></b></br>
         <?=$data['instruction']?>
+      <?php
+      break;
+      case "bca_klikpay"
+      ?>
+        <div class="container"><?php echo $content_top; ?>
+        <h2 class="text-center">Payment Succeed!</h2>
+        <p class="text-center">We've received your payment. Your order will be processed immediately</p>
+        <?php echo $content_bottom; ?>
+      </div>
+      <?php echo $footer; ?>
       <?php
       break;
       }
