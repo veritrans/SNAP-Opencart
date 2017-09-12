@@ -29,4 +29,9 @@ This is the official Veritrans extension for the OpenCart E-commerce platform.
 
   * **Unfinish Redirect URL** in Settings to `http://[your shop’s homepage]/index.php?route=payment/snap/landing_redir&`
 
-Created by CBY
+### Get Help
+
+* [SNAP-Opencart Wiki](https://github.com/veritrans/SNAP-Opencart/wiki)
+* [Veritrans registration](https://my.veritrans.co.id/register)
+* [SNAP documentation](http://snap-docs.veritrans.co.id)
+* Can't find answer you looking for? email to [support@veritrans.co.id](mailto:support@veritrans.co.id)
