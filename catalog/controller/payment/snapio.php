@@ -24,6 +24,12 @@ class ControllerPaymentSnapio extends Controller {
 
   public function index() {
 
+    if ($this->request->server['HTTPS']) {
+      $data['base'] = $this->config->get('config_ssl');
+    } else {
+      $data['base'] = $this->config->get('config_url');
+    }
+
     $data['errors'] = array();
     $data['button_confirm'] = $this->language->get('button_confirm');
 
