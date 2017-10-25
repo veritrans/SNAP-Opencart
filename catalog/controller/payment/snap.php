@@ -33,9 +33,13 @@ class ControllerPaymentSnap extends Controller {
     $data['errors'] = array();
     $data['button_confirm'] = $this->language->get('button_confirm');
 
+    $env = $this->config->get('snap_environment') == 'production' ? true : false;
+    $data['mixpanel_key'] = $env == true ? "17253088ed3a39b1e2bd2cbcfeca939a" : "9dcba9b440c831d517e8ff1beff40bd9";
+
   	$data['pay_type'] = 'snap';
     $data['environment'] = $this->config->get('snap_environment');
     $data['client_key'] = $this->config->get('snap_client_key');
+    $data['merchant_id'] = $this->config->get('snap_merchant_id');
     $data['text_loading'] = $this->language->get('text_loading');
 
   	$data['process_order'] = $this->url->link('payment/snap/process_order');
@@ -257,6 +261,7 @@ class ControllerPaymentSnap extends Controller {
 
     try {
       error_log(print_r($payloads,TRUE));
+      error_log(json_encode($payloads));
       $snapToken = Veritrans_Snap::getSnapToken($payloads);      
       error_log($snapToken);    
       //$this->response->setOutput($redirUrl);
