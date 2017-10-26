@@ -154,7 +154,6 @@ mixpanel.init("<?php echo $mixpanel_key;?>");
           },
           onError: function(result){
             trackResult(data, merch_id, 'fullpayment', 'error', result);
-            changeResult('error', result);
             console.log(result.status_message);
             $.ajax({
                 url: 'index.php?route=payment/snap/payment_cancel',

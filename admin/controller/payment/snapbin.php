@@ -35,7 +35,7 @@ class ControllerPaymentSnapbin extends Controller {
 
       'entry_api_version',
       'entry_environment',
-      'entry_merchant',
+      'entry_merchant_id',
       'entry_server_key',
       'entry_oneclick',
       'entry_order_status',
@@ -96,7 +96,7 @@ class ControllerPaymentSnapbin extends Controller {
       'snapbin_server_key',
       'snapbin_client_key',
       'snapbin_oneclick',
-      'snapbin_test',
+      'snapbin_merchant_id',
       'snapbin_total',
       'snapbin_order_status_id',
       'snapbin_geo_zone_id',
