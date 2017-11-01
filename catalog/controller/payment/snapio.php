@@ -33,9 +33,14 @@ class ControllerPaymentSnapio extends Controller {
     $data['errors'] = array();
     $data['button_confirm'] = $this->language->get('button_confirm');
 
+    $env = $this->config->get('snapio_environment') == 'production' ? true : false;
+    $data['mixpanel_key'] = $env == true ? "17253088ed3a39b1e2bd2cbcfeca939a" : "9dcba9b440c831d517e8ff1beff40bd9";
+
+
     $data['pay_type'] = 'snapio';
     $data['environment'] = $this->config->get('snapio_environment');
     $data['client_key'] = $this->config->get('snapio_client_key');
+    $data['merchant_id'] = $this->config->get('snapio_merchant_id');
     $data['min_txn'] = $this->config->get('snapio_min_txn');
     $data['text_loading'] = $this->language->get('text_loading');
 

@@ -80,6 +80,19 @@
 	<!-- Environment (v2-specific) -->
 
 	<div class="form-group required v2_settings sensitive">
+	  <label class="col-sm-2 control-label" for="input-merchant-id"><?php echo $entry_merchant_id; ?></label>
+		<div class="col-sm-3">
+		  <input type="text" name="snapio_merchant_id" value="<?php echo $snapio_merchant_id; ?>" id="input-merchant-id" class="form-control" />
+		</div>
+		<div class="col-sm-3">
+		 <?php if (isset($error['merchant_id'])) { ?>
+		   <div class="col-sm-3"> <?php echo $error['merchant_id']; ?> </div>
+		 <?php } ?>
+		</div>
+	</div>
+	<!-- Merchant id -->
+
+	<div class="form-group required v2_settings sensitive">
 	  <label class="col-sm-2 control-label" for="input-merchant-id"><?php echo $entry_server_key; ?></label>
 		<div class="col-sm-3">
 		  <input type="text" name="snapio_server_key" value="<?php echo $snapio_server_key; ?>" id="input-merchant-id" class="form-control" />
