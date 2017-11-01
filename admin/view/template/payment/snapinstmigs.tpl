@@ -79,6 +79,20 @@
 	</div>
 	<!-- Environment (v2-specific) -->
 
+
+	<div class="form-group required v2_settings sensitive">
+	  <label class="col-sm-2 control-label" for="input-merchant-id"><?php echo $entry_merchant_id; ?></label>
+		<div class="col-sm-3">
+		  <input type="text" name="snapinstmigs_merchant_id" value="<?php echo $snapinstmigs_merchant_id; ?>" id="input-merchant-id" class="form-control" />
+		</div>
+		<div class="col-sm-3">
+		 <?php if (isset($error['server_key'])) { ?>
+		   <div class="col-sm-3"> <?php echo $error['server_key']; ?> </div>
+		 <?php } ?>
+		</div>
+	</div>
+	<!-- Server Key (v2-specific) -->
+
 	<div class="form-group required v2_settings sensitive">
 	  <label class="col-sm-2 control-label" for="input-merchant-id"><?php echo $entry_server_key; ?></label>
 		<div class="col-sm-3">
@@ -90,7 +104,7 @@
 		 <?php } ?>
 		</div>
 	</div>
-	<!-- Server Key (v2-specific) -->
+	<!-- Merchant Id -->
 
 	<div class="form-group required v2_settings sensitive">
 	  <label class="col-sm-2 control-label" for="input-merchant-id"><?php echo $entry_client_key; ?></label>

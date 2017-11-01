@@ -14,6 +14,7 @@ $_['text_edit']          = 'Configure Veritrans Payment Gateway';
 // Entry
 $_['entry_api_version']  = 'API Version';
 $_['entry_environment']  = 'Environment'; // v2 API only
+$_['entry_merchant_id']  = 'Merchant id'; // v2 API only
 $_['entry_server_key']   = 'Server Key'; // v2 API only
 $_['entry_client_key']   = 'Client Key'; // v2 API only
 $_['entry_3d_secure']    = 'Enable 3D Secure?';

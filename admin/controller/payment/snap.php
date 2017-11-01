@@ -35,7 +35,7 @@ class ControllerPaymentSnap extends Controller {
 
       'entry_api_version',
       'entry_environment',
-      'entry_merchant',
+      'entry_merchant_id',
       'entry_server_key',
       'entry_client_key',
       'entry_total',
@@ -107,6 +107,7 @@ class ControllerPaymentSnap extends Controller {
       'snap_installment_terms',
       'snap_currency_conversion',
       'snap_status',
+      'snap_merchant_id',
       'snap_oneclick',
       'snap_client_key',
       'snap_expiry_duration',

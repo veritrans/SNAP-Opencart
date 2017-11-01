@@ -4,16 +4,17 @@ $_['heading_title']      = 'Snap';
 
 // Text
 $_['text_payment']       = 'Payment';
-$_['text_success']       = 'Success: You have modified Veritrans account details!';
+$_['text_success']       = 'Success: You have modified Midtrans account details!';
 $_['text_snap']          = '<a href="https://midtrans.com" target="_blank"><img src="view/image/payment/midtrans.png" width="120px" alt="Midtrans" title="Snap" style="border: 1px solid #EEEEEE;" /></a>';
 $_['text_live']          = 'Production';
 $_['text_successful']    = 'Always Successful';
 $_['text_fail']          = 'Always Fail';
-$_['text_edit']          = 'Configure Veritrans Payment Gateway';
+$_['text_edit']          = 'Configure Midtrans Payment Gateway';
 
 // Entry
 $_['entry_api_version']  = 'API Version';
 $_['entry_environment']  = 'Environment'; // v2 API only
+$_['entry_merchant_id']  = 'Merchant id'; // v2 API only
 $_['entry_client_key']   = 'Client Key'; // v2 API only
 $_['entry_server_key']   = 'Server Key'; // v2 API only
 $_['entry_3d_secure']    = 'Enable 3D Secure?';
