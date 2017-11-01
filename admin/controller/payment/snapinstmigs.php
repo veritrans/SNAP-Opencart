@@ -35,7 +35,7 @@ class ControllerPaymentSnapinstmigs extends Controller {
 
       'entry_api_version',
       'entry_environment',
-      'entry_merchant',
+      'entry_merchant_id',
       'entry_server_key',
       'entry_hash',
       'entry_test',
@@ -97,6 +97,7 @@ class ControllerPaymentSnapinstmigs extends Controller {
       'snapinstmigs_environment',
       'snapinstmigs_server_key',
       'snapinstmigs_client_key',
+      'snapinstmigs_merchant_id',
       'snapinstmigs_test',
       'snapinstmigs_total',
       'snapinstmigs_order_status_id',

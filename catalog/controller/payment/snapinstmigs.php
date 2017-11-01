@@ -33,9 +33,14 @@ class ControllerPaymentSnapinstmigs extends Controller {
     $data['errors'] = array();
     $data['button_confirm'] = $this->language->get('button_confirm');
 
+    $env = $this->config->get('snapinstmigs_environment') == 'production' ? true : false;
+    $data['mixpanel_key'] = $env == true ? "17253088ed3a39b1e2bd2cbcfeca939a" : "9dcba9b440c831d517e8ff1beff40bd9";
+
+
     $data['pay_type'] = 'snapinstmigs';
     $data['environment'] = $this->config->get('snapinstmigs_environment');
     $data['client_key'] = $this->config->get('snapinstmigs_client_key');
+    $data['merchant_id'] = $this->config->get('snapinstmigs_merchant_id');
     $data['min_txn'] = $this->config->get('snapinstmigs_min_txn');
     $data['text_loading'] = $this->language->get('text_loading');
 
@@ -215,19 +220,14 @@ class ControllerPaymentSnapinstmigs extends Controller {
         $this->config->get('snapinst_environment') == 'production'
         ? true : false;
 
-    Veritrans_Config::$is3ds = TRUE;
-
-    Veritrans_Config::$isSanitized =
-        $this->config->get('snapinst_sanitization') == 'on'
-        ? true : false;
-
     $min_txn = $this->config->get('snapinstmigs_min_txn');
     $credit_card['channel'] = "migs";
     $credit_card['bank'] = "bca";
+    $credit_card['secure'] = true;
     $installment = array();
     $installment_term = array();
     
-    $installment_term['bca'] = array(3,6,9,12,18,24,36);
+    $installment_term['bca'] = array(3,6,12);
     
     $installment['required'] = TRUE;
     $installment['terms'] = $installment_term;    
