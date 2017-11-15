@@ -115,7 +115,7 @@ mixpanel.init("<?php echo $mixpanel_key;?>");
               merchant_id: merch_id,
               cms_name: 'Opencart',
               cms_version : '2.0',
-              plugin_name: 'fullpayment',
+              plugin_name: plugin_name,
               snap_token: data,
               payment_type: result ? result.payment_type: null,
               order_id: result ? result.order_id: null,
@@ -137,6 +137,14 @@ mixpanel.init("<?php echo $mixpanel_key;?>");
           //resultData.innerHTML = JSON.stringify(data);
         }
 
+        mixpanel.track(
+          'pg-pay', {
+            merchant_id: merch_id,
+            plugin_name: "oc2_fullpayment",
+            snap_token: data
+          }
+        );
+
         snap.pay(data, {
           skipOrderSummary: true, 
           onSuccess: function(result){
@@ -154,6 +162,7 @@ mixpanel.init("<?php echo $mixpanel_key;?>");
           },
           onError: function(result){
             trackResult(data, merch_id, 'fullpayment', 'error', result);
+            changeResult('error', result);
             console.log(result.status_message);
             $.ajax({
                 url: 'index.php?route=payment/snap/payment_cancel',
@@ -163,8 +172,6 @@ mixpanel.init("<?php echo $mixpanel_key;?>");
                   window.location.replace(baseurl+"index.php?route=payment/snap/failure");
                 }
               });  
-            //$("#payment-form").submit();
-
           },
           onClose: function(){
             trackResult(data, merch_id, 'fullpayment', 'close');
