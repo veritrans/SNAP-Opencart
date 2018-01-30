@@ -142,6 +142,14 @@ mixpanel.init("<?php echo $mixpanel_key;?>");
           //resultData.innerHTML = JSON.stringify(data);
         }
 
+        mixpanel.track(
+          'pg-pay', {
+            merchant_id: merch_id,
+            plugin_name: "oc2_installment_dragon",
+            snap_token: data
+          }
+        );
+
         snap.pay(data, {
           
           onSuccess: function(result){
@@ -170,7 +178,7 @@ mixpanel.init("<?php echo $mixpanel_key;?>");
               });  
           },
           onClose: function(){
-            trackResult(data, merch_id, 'installment_dragon', 'close', result);
+            trackResult(data, merch_id, 'installment_dragon', 'close');
             var c =  confirm("close button clicked. Do you really want to cancel your transaction?");
             var baseurl = "<?php echo $base;?>";
             if (c == true){

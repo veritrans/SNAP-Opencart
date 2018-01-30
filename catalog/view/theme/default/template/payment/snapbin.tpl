@@ -87,7 +87,8 @@
 
   <script> 
   
-    merch_id = "<?php echo $merchant_id;?>";
+    var merch_id = "<?php echo $merchant_id;?>";
+    var baseurl = "<?php echo $base;?>";
 
     $('#button-confirm').click(function (event) {
       event.preventDefault();
@@ -117,7 +118,7 @@
               merchant_id: merch_id,
               cms_name: 'Opencart',
               cms_version : '2.0',
-              plugin_name: 'bin_promo',
+              plugin_name: plugin_name,
               snap_token: data,
               payment_type: result ? result.payment_type: null,
               order_id: result ? result.order_id: null,
@@ -140,18 +141,26 @@
           //resultData.innerHTML = JSON.stringify(data);
         }
 
+        mixpanel.track(
+          'pg-pay', {
+            merchant_id: merch_id,
+            plugin_name: "oc2_bin_promo",
+            snap_token: data
+          }
+        );
+
         snap.pay(data, {
           
           onSuccess: function(result){
+            trackResult(data, merch_id, 'bin_promo', 'success', result);
             changeResult('success', result);
             console.log(result.status_message);
-            trackResult(data, merch_id, 'bin_promo', 'success', result);
             $("#payment-form").submit();
           },
           onPending: function(result){
+            trackResult(data, merch_id, 'bin_promo', 'pending', result);
             changeResult('pending', result);
             console.log(result.status_message);
-            trackResult(data, merch_id, 'bin_promo', 'pending', result);
             $("#payment-form").submit();
           },
           onError: function(result){
