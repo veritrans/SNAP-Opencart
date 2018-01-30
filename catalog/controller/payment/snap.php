@@ -224,19 +224,20 @@ class ControllerPaymentSnap extends Controller {
     Veritrans_Config::$isSanitized = true;
 
     $credit_card['secure'] = true;
-    $credit_card['save_card'] = true;
+
+    error_log('snap oneclick value  ='.$this->config->get('snap_oneclick'));
+    
+    if($this->config->get('snap_oneclick') == 1){
+      $credit_card['save_card'] = true;
+      $payloads['user_id'] = crypt( $order_info['email'], $serverKey );
+    }
 
     $payloads = array();
     $payloads['transaction_details'] = $transaction_details;
     $payloads['item_details']        = $item_details;
     $payloads['customer_details']    = $customer_details;
-    
-    error_log('snap oneclick value  ='.$this->config->get('snap_oneclick'));
-    
-    if($this->config->get('snap_oneclick') == 1){
-      $payloads['credit_card'] = $credit_card;
-      $payloads['user_id'] = crypt( $order_info['email'], $serverKey );
-    }  
+  
+    $payloads['credit_card'] = $credit_card;
 
     $custom_field = array();
     $custom_field[1] = $this->config->get('snap_custom_field1');
@@ -312,21 +313,11 @@ class ControllerPaymentSnap extends Controller {
       $payment_type = $bca_status->payment_type;
     }
 
-    /*$response = isset($_POST['result_data']) ? json_decode($_POST['result_data']) : json_decode($_POST['response']);
-    error_log(print_r($response,TRUE));
-
-    $id = isset($_GET['id']) ? $_GET['id'] : null;
-
-    if($id){
-      $bca_status = Veritrans_Transaction::status($id);
-      $payment_type = $bca_status->payment_type;
-    }*/
-
     //error_log($response->va_numbers[0]->bank);
     $base_url = $this->config->get('snap_environment') == 'production' 
     ? "https://app.veritrans.co.id" : "https://app.sandbox.veritrans.co.id";
 
-    $channel = array("bank_transfer", "echannel", "cstore","xl_tunai");
+    $channel = array("bank_transfer", "echannel", "cstore","xl_tunai","bca_klikbca");
     
     if($payment_type == "bca_klikpay"){
 
@@ -463,6 +454,23 @@ class ControllerPaymentSnap extends Controller {
             'instruction'      => $base_url . $response->pdf_url,
             'payment_code' => $response->payment_code
             //'expire' => $response->indomaret_expire_time
+            );         
+
+            break;
+          case "bca_klikbca":
+
+          $this->cart->clear();
+          if($check->transaction_status == "settlement"){
+
+              $this->model_checkout_order->addOrderHistory($this->session->data['order_id'],2);
+              $redirUrl = $this->url->link('checkout/success&');
+              $this->response->redirect($redirUrl);
+              
+            }
+
+            $data['data']= array(
+            'payment_type' => $payment_type,
+            'payment_method' => "Klik BCA", 
             );         
 
             break;

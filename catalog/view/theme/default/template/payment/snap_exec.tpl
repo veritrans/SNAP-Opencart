@@ -54,6 +54,14 @@
         For payment instruction click <a href="<?=$data['instruction']?>" target="blank">here<a></br>
       <?php
       break;
+      case "bca_klikbca"
+      ?>
+        <h1>Payment has not complete yet!</h1>
+        your order has been received but has not been paid yet</br>
+        you place order with <b><?=$data['payment_method']?></b></br>
+        Please complete your payment at <a href="http://www.klikbca.com">Klik Bca</a>
+      <?php
+      break;
       case "xl_tunai"
       ?>
       <h1>Payment has not complete yet!</h1>
