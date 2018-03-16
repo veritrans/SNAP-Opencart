@@ -32,8 +32,8 @@ class ControllerPaymentSnapmigs extends Controller {
 
     $data['errors'] = array();
     $data['button_confirm'] = $this->language->get('button_confirm');
+    $env = $this->config->get('snapmigs_environment') == 'production' ? true : false;
 
-    $env = $this->config->get('snap_environment') == 'production' ? true : false;
     $data['mixpanel_key'] = $env == true ? "17253088ed3a39b1e2bd2cbcfeca939a" : "9dcba9b440c831d517e8ff1beff40bd9";
     $data['merchant_id'] = $this->config->get('snapmigs_merchant_id');
 
@@ -215,13 +215,13 @@ class ControllerPaymentSnapmigs extends Controller {
     Veritrans_Config::$serverKey = $serverKey;
 
     Veritrans_Config::$isProduction =
-        $this->config->get('snapio_environment') == 'production'
+        $this->config->get('snapmigs_environment') == 'production'
         ? true : false;
 
     Veritrans_Config::$is3ds = TRUE;
 
     Veritrans_Config::$isSanitized =
-        $this->config->get('snapio_sanitization') == 'on'
+        $this->config->get('snapmigs_sanitization') == 'on'
         ? true : false;
 
 
