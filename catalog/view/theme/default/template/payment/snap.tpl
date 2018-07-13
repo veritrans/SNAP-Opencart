@@ -18,14 +18,14 @@
   ?>
   
   <form id="payment-form" method="post" action="index.php?route=payment/snap/landing_redir">
-    <input type="hidden" name="result_type" id="result-type" value=""></div>
-    <input type="hidden" name="result_data" id="result-data" value=""></div>
-  <div class="buttons">
-		<div class="pull-right"> 
-    <input type="submit" value="<?php echo $button_confirm ?>" id="button-confirm" class="btn btn-primary " data-loading-text="<?php echo $text_loading; ?>"  />
-    </form>
-		</div>
-	</div>
+    <input type="hidden" name="result_type" id="result-type" value="">
+    <input type="hidden" name="result_data" id="result-data" value="">
+    <div class="buttons">
+      <div class="pull-right"> 
+        <input type="submit" value="<?php echo $button_confirm ?>" id="button-confirm" class="btn btn-primary " data-loading-text="<?php echo $text_loading; ?>"  />
+      </div>
+    </div>
+  </form>
 
   <!-- start Mixpanel --><script type="text/javascript">
 
