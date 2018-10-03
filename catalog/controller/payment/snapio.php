@@ -234,7 +234,7 @@ class ControllerPaymentSnapio extends Controller {
     $installment['required'] = TRUE;
     $installment['terms'] = $installment_term;    
 
-    if($transaction_details['gross_amount'] < $min_txn){
+    if($transaction_details['gross_amount'] >= $min_txn){
       $credit_card['installment'] = $installment;  
     }
 
