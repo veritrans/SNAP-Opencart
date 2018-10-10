@@ -51,7 +51,7 @@
 	<div class="form-group required">
 	  <label class="col-sm-2 control-label" for="input-merchant-id"><?php echo $entry_display_name; ?></label>
 	   <div class="col-sm-3">
-		 <input type="text" name="snap_display_name" value="<?php echo $snap_display_name; ?>" id="input-merchant-id" class="form-control" />
+		 <input type="text" name="payment_snap_display_name" value="<?php echo $payment_snap_display_name; ?>" id="input-merchant-id" class="form-control" />
 	   </div>
 	   <div class="col-sm-3">
 	     <?php if (isset($error['display_name'])) { ?>
