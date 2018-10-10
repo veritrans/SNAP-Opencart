@@ -118,7 +118,7 @@ class ControllerPaymentSnap extends Controller {
       'midtrans_snap_success_mapping',
       'midtrans_snap_failure_mapping',
       'midtrans_snap_challenge_mapping',
-      'snap_display_name',
+      'payment_snap_display_name',
       'snap_enabled_payments',
       'snap_sanitization'
     );
@@ -175,7 +175,7 @@ class ControllerPaymentSnap extends Controller {
     }
 
     // check for empty values
-    if (!$this->request->post['snap_display_name']) {
+    if (!$this->request->post['payment_snap_display_name']) {
       $this->error['display_name'] = $this->language->get('error_display_name');
     }
 
