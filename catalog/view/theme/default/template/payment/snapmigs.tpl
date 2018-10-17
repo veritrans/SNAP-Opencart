@@ -108,6 +108,7 @@ mixpanel.init("<?php echo $mixpanel_key;?>");
 
         function trackResult(token, merchant_id, plugin_name, status, result) {
           var eventNames = {
+            pay: 'pg-pay',
             success: 'pg-success',
             pending: 'pg-pending',
             error: 'pg-error',
@@ -140,13 +141,7 @@ mixpanel.init("<?php echo $mixpanel_key;?>");
           //resultData.innerHTML = JSON.stringify(data);
         }
 
-        mixpanel.track(
-          'pg-pay', {
-            merchant_id: merch_id,
-            plugin_name: "oc2_cc_migs",
-            snap_token: data
-          }
-        );
+        trackResult(data, merch_id, 'oc2_cc_migs', 'pay', null);
 
         snap.pay(data, {
           

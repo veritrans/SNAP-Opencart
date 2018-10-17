@@ -108,6 +108,7 @@
 
         function trackResult(token, merchant_id, plugin_name, status, result) {
           var eventNames = {
+            pay: 'pg-pay',
             success: 'pg-success',
             pending: 'pg-pending',
             error: 'pg-error',
@@ -141,13 +142,7 @@
           //resultData.innerHTML = JSON.stringify(data);
         }
 
-        mixpanel.track(
-          'pg-pay', {
-            merchant_id: merch_id,
-            plugin_name: "oc2_bin_promo",
-            snap_token: data
-          }
-        );
+        trackResult(data, merch_id, 'oc2_bin_promo', 'pay', null);
 
         snap.pay(data, {
           
