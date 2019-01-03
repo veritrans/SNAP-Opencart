@@ -244,8 +244,13 @@ class ControllerPaymentSnap extends Controller {
     $custom_field[2] = $this->config->get('snap_custom_field2');
     $custom_field[3] = $this->config->get('snap_custom_field3');
 
-    $expiry_unit = $this->config->get('snap_expiry_unit');
+    $expiry_unit = $this->config->get('snap_expiry_unit'); /* ByDefault Day */
     $expiry_duration = $this->config->get('snap_expiry_duration');
+
+    /* Handle default Expired Date */
+    if (empty($expiry_duration)) {
+      $expiry_duration = 1;
+    }
 
     if (!empty($expiry_unit) && !empty($expiry_duration)){
           $time = time();
