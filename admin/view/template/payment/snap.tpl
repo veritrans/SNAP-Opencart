@@ -131,7 +131,7 @@
 	 </div>
 	 <!-- One Click -->
 
-	 <div class="form-group v2_settings sensitive required">
+	 <div class="form-group v2_settings sensitive">
 	  <label class="col-sm-2 control-label" for="input-mode"><?php echo $entry_expiry; ?></label>
 	    <div class="col-sm-3">
 			<input type="text" name="snap_expiry_duration" placeholder="filled with number"  value="<?php echo $snap_expiry_duration; ?>" id="input-merchant-id" class="form-control" />
