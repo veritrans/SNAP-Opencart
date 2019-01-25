@@ -24,7 +24,7 @@ class ModelPaymentSnap extends Model {
       $method_data = array(
         'code'       => 'snap',
         'title'      => $this->config->get('snap_display_name'),
-		'sort_order' => $this->config->get('nap_sort_order'),
+		'sort_order' => $this->config->get('snap_sort_order'),
 		'terms' 	 => ''
       );
     }
