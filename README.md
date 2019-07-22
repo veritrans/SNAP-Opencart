@@ -1,9 +1,9 @@
-Official Veritrans SNAP OpenCart Extension
+Official Midtrans SNAP OpenCart Extension
 ===================================
 
-Veritrans :heart: OpenCart!
+Midtrans :heart: OpenCart!
 
-This is the official Veritrans extension for the OpenCart E-commerce platform.
+This is the official Midtrans extension for the OpenCart E-commerce platform.
 
 ## Compatibility
 1. PHP v5.4 and higher
@@ -17,9 +17,15 @@ This is the official Veritrans extension for the OpenCart E-commerce platform.
 
 3. Copy the `admin`, `catalog`, and `system` folders into your _OpenCart's_ root folder, and merge it.
 
-4. In your _OpenCart_ admin area, enable the Veritrans plug-in and insert your merchant details (server key and client key).
+4. In your _OpenCart_ admin area, go to `Extensions` - `Payments`.
 
-5. Login into your Veritrans account and change the following options:
+5. Scroll down untill you find `Midtrans`.
+
+6. Click the `Install` green button and edit the plugin.
+
+7. Insert your merchant details (server key and client key).
+
+8. Login into your Midtrans account and change the following options:
 
   * **Payment Notification URL** in Settings to `http://[your shop's homepage]/index.php?route=payment/snap/payment_notification`
 
@@ -32,6 +38,6 @@ This is the official Veritrans extension for the OpenCart E-commerce platform.
 ### Get Help
 
 * [SNAP-Opencart Wiki](https://github.com/veritrans/SNAP-Opencart/wiki)
-* [Veritrans registration](https://my.veritrans.co.id/register)
-* [SNAP documentation](http://snap-docs.veritrans.co.id)
-* Can't find answer you looking for? email to [support@veritrans.co.id](mailto:support@veritrans.co.id)
+* [Midtrans registration](https://account.midtrans.com/register)
+* [SNAP documentation](https://snap-docs.midtrans.com/)
+* Can't find answer you looking for? email to [support@midtrans.com](mailto:support@midtrans.com)

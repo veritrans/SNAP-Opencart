@@ -1,6 +1,6 @@
 <?php
 // Heading
-$_['heading_title']      = 'Snap';
+$_['heading_title']      = 'Midtrans';
 
 // Text
 $_['text_payment']       = 'Payment';
@@ -22,22 +22,26 @@ $_['entry_payment_type'] = 'Payment Type';
 $_['entry_test']         = 'Test Mode:';
 $_['entry_total']        = 'Total:<br /><span class="help">The checkout total the order must reach before this payment method becomes active.</span>';
 $_['entry_order_status'] = 'Order Status:';
-$_['entry_geo_zone']     = 'Geo Zone:';
-$_['entry_status']       = 'Status:';
-$_['entry_oneclick']     = 'One click:';
+$_['entry_geo_zone']     = 'Geo Zone';
+$_['entry_status']       = 'Status';
+$_['entry_oneclick']     = 'Save Card';
 $_['entry_expiry']       = 'Custom Expiry Duration';
 $_['entry_custom_field'] = 'Custom field';
-$_['entry_sort_order']   = 'Sort Order:';
+$_['entry_sort_order']   = 'Sort Order';
 $_['entry_currency_conversion'] = 'Currency conversion to IDR';
 $_['entry_snap_success_mapping'] = 'Map Payment Success Status to Order Status:';
 $_['entry_snap_challenge_mapping'] = 'Map Payment Challenge Status to Order Status:';
 $_['entry_snap_failure_mapping'] = 'Map Payment Failure Status to Order Status:';
-$_['entry_display_name'] = 'Display name:';
+$_['entry_display_name'] = 'Display name';
+
+// Help
+$_['help_savecard'] = 'This will allow your customer to save their card on the payment popup, for faster payment flow on the following purchase.';
+$_['help_expiry'] = 'This will allow you to set custom duration on how long the transaction available to be paid.';
+$_['help_custom_field'] = 'This will allow you to set custom fields that will be displayed on Midtrans dashboard.';
 
 // Error
-$_['error_permission']   = 'Warning: You do not have permission to modify the Veritrans Payment!';
+$_['error_permission']   = 'Warning: You do not have permission to modify the Midtrans Payment!';
 $_['error_merchant']     = 'Merchant ID is required!';
-$_['error_hash']    	 	 = 'Merchant Hash Key is required!';
 $_['error_client_key']   = 'Client Key is required!';
 $_['error_server_key']   = 'Server Key is required!';
 $_['error_currency_conversion'] = 'Currency conversion rate is required when IDR currency is not installed in the system!';

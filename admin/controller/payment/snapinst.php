@@ -21,6 +21,42 @@ class ControllerPaymentSnapinst extends Controller {
       $this->response->redirect($this->url->link('extension/payment', 'token=' . $this->session->data['token'], 'SSL'));
     }
 
+    if (isset($this->error['warning'])) {
+      $data['error_warning'] = $this->error['warning'];
+    } else {
+      $data['error_warning'] = '';
+    }
+
+    if (isset($this->error['display_name'])) {
+      $data['error_display_name'] = $this->error['display_name'];
+    } else {
+      $data['error_display_name'] = '';
+    }
+    
+    if (isset($this->error['merchant_id'])) {
+      $data['error_merchant'] = $this->error['merchant_id'];
+    } else {
+      $data['error_merchant'] = '';
+    }
+
+    if (isset($this->error['server_key'])) {
+      $data['error_server_key'] = $this->error['server_key'];
+    } else {
+      $data['error_server_key'] = '';
+    }
+
+    if (isset($this->error['client_key'])) {
+      $data['error_client_key'] = $this->error['client_key'];
+    } else {
+      $data['error_client_key'] = '';
+    }
+
+    if (isset($this->error['min_txn'])) {
+      $data['error_min_txn'] = $this->error['min_txn'];
+    } else {
+      $data['error_min_txn'] = '';
+    }
+
     $language_entries = array(
 
       'heading_title',
@@ -48,19 +84,17 @@ class ControllerPaymentSnapinst extends Controller {
       'entry_currency_conversion',
       'entry_display_name',
       'entry_min_txn',
+      'entry_custom_field',
 
+      'help_min',
+      'help_custom_field',
+      
       'button_save',
       'button_cancel'
       );
 
     foreach ($language_entries as $language_entry) {
       $data[$language_entry] = $this->language->get($language_entry);
-    }
-
-    if (isset($this->error)) {
-      $data['error'] = $this->error;
-    } else {
-      $data['error'] = array();
     }
 
     $data['breadcrumbs'] = array();
@@ -108,7 +142,10 @@ class ControllerPaymentSnapinst extends Controller {
       'snapinst_display_name',
       'snapinst_enabled_payments',
       'snapinst_sanitization',
-      'snapinst_min_txn'
+      'snapinst_min_txn',
+      'snapinst_custom_field1',
+      'snapinst_custom_field2',
+      'snapinst_custom_field3'
     );
 
     foreach ($inputs as $input) {
@@ -147,17 +184,6 @@ class ControllerPaymentSnapinst extends Controller {
 
   protected function validate() {
 
-    // Override version to v2
-    $version = 2;
-
-    // temporarily always set the payment type to vtweb if the api_version == 2
-    if ($version == 2)
-      $this->request->post['snapinst_payment_type'] = 'vtweb';
-
-    $payment_type = $this->request->post['snapinst_payment_type'];
-    if (!in_array($payment_type, array('vtweb', 'vtdirect')))
-      $payment_type = 'vtweb';
-
     if (!$this->user->hasPermission('modify', 'payment/snapinst')) {
       $this->error['warning'] = $this->language->get('error_permission');
     }
@@ -166,50 +192,36 @@ class ControllerPaymentSnapinst extends Controller {
     if (!$this->request->post['snapinst_display_name']) {
       $this->error['display_name'] = $this->language->get('error_display_name');
     }
-
-    // version-specific validation
-    if ($version == 1)
-    {
-      // check for empty values
-      if ($payment_type == 'vtweb')
-      {
-        if (!$this->request->post['snapinst_merchant']) {
-          $this->error['merchant'] = $this->language->get('error_merchant');
-        }
-
-        if (!$this->request->post['snapinst_hash']) {
-          $this->error['hash'] = $this->language->get('error_hash');
-        }
-      } else
-      {
-        if (!$this->request->post['snapinst_client_key']) {
-          $this->error['client_key'] = $this->language->get('error_client_key');
-        }
-
-        if (!$this->request->post['snapinst_server_key']) {
-          $this->error['server_key'] = $this->language->get('error_server_key');
-        }
-      }
-    } else if ($version == 2)
-    {
-      // default values
-      if (!$this->request->post['snapinst_environment'])
-        $this->request->post['snapinst_environment'] = 1;
-
-      if (!$this->request->post['snapinst_server_key']) {
-        $this->error['server_key'] = $this->language->get('error_server_key');
-      }
+        
+    // check for empty values
+    if (!$this->request->post['snapinst_client_key']) {
+      $this->error['client_key'] = $this->language->get('error_client_key');
     }
 
+    // check for empty values
+    if (!$this->request->post['snapinst_server_key']) {
+      $this->error['server_key'] = $this->language->get('error_server_key');
+    }
+
+    // default values
+    if (!$this->request->post['snapinst_environment'])
+      $this->request->post['snapinst_environment'] = 1;
+
+      // check for empty values
+    if (!$this->request->post['snapinst_merchant_id']) {
+       $this->error['merchant_id'] = $this->language->get('error_merchant');
+    }
+
+      // check for empty values
+    if (!$this->request->post['snapinst_min_txn']) {
+       $this->error['min_txn'] = $this->language->get('error_min_txn');
+    }
     // currency conversion to IDR
     if (!$this->request->post['snapinst_currency_conversion'] && !$this->currency->has('IDR'))
       $this->error['currency_conversion'] = $this->language->get('error_currency_conversion');
 
-    if (!$this->error) {
-      return true;
-    } else {
-      return false;
-    }
+    return !$this->error;
+
   }
 }
 ?>

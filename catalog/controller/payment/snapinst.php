@@ -17,7 +17,7 @@ status code
 16 voided
 */
 
-
+require_once(dirname(__FILE__) . '/snap_midtrans_version.php');
 require_once(DIR_SYSTEM . 'library/veritrans-php/Veritrans.php');
 
 class ControllerPaymentSnapinst extends Controller {
@@ -46,6 +46,9 @@ class ControllerPaymentSnapinst extends Controller {
 
     $data['process_order'] = $this->url->link('payment/snapinst/process_order');
 
+    $data['opencart_version'] = VERSION;
+    $data['mtplugin_version'] = OC2_MIDTRANS_PLUGIN_VERSION;
+    
     if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/template/payment/snapinst.tpl')) {
         return $this->load->view($this->config->get('config_template') . '/template/payment/snapinst.tpl',$data);
     } else {
@@ -226,21 +229,23 @@ class ControllerPaymentSnapinst extends Controller {
         $this->config->get('snapinst_sanitization') == 'on'
         ? true : false;
 
-    $min_txn = $this->config->get('snapinst_min_txn');
-    $credit_card['save_card'] = true;
+    // $min_txn = $this->config->get('snapinst_min_txn');
+    // $credit_card['save_card'] = true;
     $installment = array();
     $installment_term = array();
     
-    $installment_term['bni'] = array(3,6,9,12,18,24,36);
-    $installment_term['mandiri'] = array(3,6,9,12,18,24,36);
-    $installment_term['cimb'] = array(3,6,9,12,18,24,36);
+    $installment_term['bni'] = array(3,6,9,12,15,18,21,24,27,30,33,36);
+    $installment_term['mandiri'] = array(3,6,9,12,15,18,21,24,27,30,33,36);
+    $installment_term['cimb'] = array(3,6,9,12,15,18,21,24,27,30,33,36);
+    $installment_term['bri'] = array(3,6,9,12,15,18,21,24,27,30,33,36);
+    $installment_term['maybank'] = array(3,6,9,12,15,18,21,24,27,30,33,36);
+    $installment_term['bca'] = array(3,6,9,12,15,18,21,24,27,30,33,36);
+    $installment_term['mega'] = array(3,6,9,12,15,18,21,24,27,30,33,36);
 
     $installment['required'] = TRUE;
-    $installment['terms'] = $installment_term;    
+    $installment['terms'] = $installment_term;
 
-    if($transaction_details['gross_amount'] >= $min_txn){
-      $credit_card['installment'] = $installment;  
-    }
+    $credit_card['installment'] = $installment;
     
     $payloads = array();
     $payloads['transaction_details'] = $transaction_details;
@@ -248,6 +253,14 @@ class ControllerPaymentSnapinst extends Controller {
     $payloads['customer_details']    = $customer_details;
     $payloads['enabled_payments']    = array('credit_card');
     $payloads['credit_card'] = $credit_card;
+
+    if ($transaction_details['gross_amount'] >= $this->config->get('snapinst_min_txn')){
+      $payloads['credit_card'] = $credit_card;
+    }
+
+    if(!empty($this->config->get('snapinst_custom_field1'))){$payloads['custom_field1'] = $this->config->get('snapinst_custom_field1');}
+    if(!empty($this->config->get('snapinst_custom_field2'))){$payloads['custom_field2'] = $this->config->get('snapinst_custom_field2');}
+    if(!empty($this->config->get('snapinst_custom_field3'))){$payloads['custom_field3'] = $this->config->get('snapinst_custom_field3');}
 
     try {
       error_log(print_r($payloads,TRUE));

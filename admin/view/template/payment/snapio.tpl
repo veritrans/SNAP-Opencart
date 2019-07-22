@@ -18,27 +18,26 @@
 </div>
 <!--header, breadcrumb & button-->
 
-
  <div class="container-fluid">
-   <div class="panel panel-default">
-    <div class="panel-heading">
-	 <h3 class="panel-title"><i class="fa fa-pencil"></i> <?php echo $text_edit; ?></h3>
-    </div>
-
    <!--error-->
-   <?php if (isset($error['error_warning'])) { ?>
-    <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php echo $error['error_warning']; ?>
+   <?php if ($error_warning) { ?>
+    <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php echo error_warning; ?>
      <button type="button" class="close" data-dismiss="alert">&times;</button>
     </div>
    <?php } ?>
    <!--error-->
 
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-pencil"></i> <?php echo $text_edit; ?></h3>
+      </div>
+
 	<div class="panel-body">
 	 <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" id="form" class="form-horizontal">
 	 <div class="form-group">
-      <label class="col-sm-2 control-label" for="input-mode"><?php echo $entry_status; ?></label>
-		<div class="col-sm-3">
-		 <select name="snapio_status" id="input-mode" class="form-control">
+      <label class="col-sm-2 control-label" for="input-status"><?php echo $entry_status; ?></label>
+		<div class="col-sm-10">
+		 <select name="snapio_status" id="input-status" class="form-control">
 		  <?php $options = array('1' => $text_enabled, '0' => $text_disabled) ?>
 		   <?php foreach ($options as $key => $value): ?>
 		    <option value="<?php echo $key ?>" <?php if ($key == $snapio_status) echo 'selected' ?> ><?php echo $value ?></option>
@@ -49,21 +48,30 @@
 	<!-- Status -->
 
 	<div class="form-group required">
-	  <label class="col-sm-2 control-label" for="input-merchant-id"><?php echo $entry_display_name; ?></label>
-	   <div class="col-sm-3">
-		 <input type="text" name="snapio_display_name" value="<?php echo $snapio_display_name; ?>" id="input-merchant-id" class="form-control" />
-	   </div>
-	   <div class="col-sm-3">
-	     <?php if (isset($error['display_name'])) { ?>
-		  <div class="col-sm-3"> <?php echo $error['display_name']; ?> </div>
-		 <?php } ?>
+	  <label class="col-sm-2 control-label" for="input-display-name"><?php echo $entry_display_name; ?></label>
+	   <div class="col-sm-10">
+		 <input type="text" name="snapio_display_name" value="<?php echo $snapio_display_name; ?>" id="input-display-name" class="form-control" />
+            <?php if ($error_display_name) { ?>
+            <div class="text-danger"><?php echo $error_display_name; ?></div>
+            <?php } ?>
 	   </div>
 	</div>
 	<!-- Display name -->
 
-	<div class="form-group v2_settings sensitive required">
+	<div class="form-group required sensitive">
+	  <label class="col-sm-2 control-label" for="input-merchant-id"><?php echo $entry_merchant_id; ?></label>
+		<div class="col-sm-10">
+		  <input type="text" name="snapio_merchant_id" value="<?php echo $snapio_merchant_id; ?>" id="input-merchant-id" class="form-control" />
+            <?php if ($error_merchant) { ?>
+            <div class="text-danger"><?php echo $error_merchant; ?></div>
+            <?php } ?>
+		</div>
+	</div>
+	<!-- Merchant id -->
+
+	<div class="form-group sensitive">
 	  <label class="col-sm-2 control-label" for="input-mode"><?php echo $entry_environment; ?></label>
-	    <div class="col-sm-3">
+	    <div class="col-sm-10">
 		  <select name="snapio_environment" id="input-mode" class="form-control">
 		    <?php $options = array('development' => 'Sandbox', 'production' => 'Production') ?>
 			<?php foreach ($options as $key => $value): ?>
@@ -71,83 +79,103 @@
 			<?php endforeach ?>
 		  </select>
 		</div>
-		<div class="col-sm-3">
-		<?php if (isset($error['environment'])) { ?>
-		  <div class="col-sm-3"> <?php echo $error['environment']; ?> </div>
-		<?php } ?>
-		</div>
 	</div>
 	<!-- Environment (v2-specific) -->
 
-	<div class="form-group required v2_settings sensitive">
-	  <label class="col-sm-2 control-label" for="input-merchant-id"><?php echo $entry_merchant_id; ?></label>
-		<div class="col-sm-3">
-		  <input type="text" name="snapio_merchant_id" value="<?php echo $snapio_merchant_id; ?>" id="input-merchant-id" class="form-control" />
-		</div>
-		<div class="col-sm-3">
-		 <?php if (isset($error['merchant_id'])) { ?>
-		   <div class="col-sm-3"> <?php echo $error['merchant_id']; ?> </div>
-		 <?php } ?>
+	<div class="form-group required sensitive">
+	  <label class="col-sm-2 control-label" for="input-client-key"><?php echo $entry_client_key; ?></label>
+		<div class="col-sm-10">
+		  <input type="text" name="snapio_client_key" value="<?php echo $snapio_client_key; ?>" id="input-client-key" class="form-control" />
+            <?php if ($error_client_key) { ?>
+            <div class="text-danger"><?php echo $error_client_key; ?></div>
+            <?php } ?>
 		</div>
 	</div>
-	<!-- Merchant id -->
+	<!-- Client Key (v2-specific) -->
 
 	<div class="form-group required v2_settings sensitive">
-	  <label class="col-sm-2 control-label" for="input-merchant-id"><?php echo $entry_server_key; ?></label>
-		<div class="col-sm-3">
-		  <input type="text" name="snapio_server_key" value="<?php echo $snapio_server_key; ?>" id="input-merchant-id" class="form-control" />
-		</div>
-		<div class="col-sm-3">
-		 <?php if (isset($error['server_key'])) { ?>
-		   <div class="col-sm-3"> <?php echo $error['server_key']; ?> </div>
-		 <?php } ?>
+	  <label class="col-sm-2 control-label" for="input-server-key"><?php echo $entry_server_key; ?></label>
+		<div class="col-sm-10">
+		  <input type="text" name="snapio_server_key" value="<?php echo $snapio_server_key; ?>" id="input-server-key" class="form-control" />
+            <?php if ($error_server_key) { ?>
+            <div class="text-danger"><?php echo $error_server_key; ?></div>
+            <?php } ?>
 		</div>
 	</div>
 	<!-- Server Key (v2-specific) -->
 
-	<div class="form-group required v2_settings sensitive">
-	  <label class="col-sm-2 control-label" for="input-merchant-id"><?php echo $entry_client_key; ?></label>
-		<div class="col-sm-3">
-		  <input type="text" name="snapio_client_key" value="<?php echo $snapio_client_key; ?>" id="input-merchant-id" class="form-control" />
-		</div>
-		<div class="col-sm-3">
-		 <?php if (isset($error['client_key'])) { ?>
-		   <div class="col-sm-3"> <?php echo $error['client_key']; ?> </div>
-		 <?php } ?>
+	<div class="form-group">
+	  <label class="col-sm-2 control-label" for="input-acq-bank"><?php echo $entry_acq_bank; ?></label>
+		<div class="col-sm-10">
+		  <input type="text" name="snapio_acq_bank" value="<?php echo $snapio_acq_bank; ?>" id="input-acq-bank" class="form-control" />
+		  <span>Input the desired acquiring bank. e.g: bni. <br>Leave blank if you are not sure!</span>
 		</div>
 	</div>
-	<!-- Server Key (v2-specific) -->
+	<!-- Acquiring Bank -->
+
+	<div class="form-group">
+	 <label class="col-sm-2 control-label" for="input-terms"><?php echo $entry_installment_term; ?></label>
+	  <div class="col-sm-10">
+	   <input type="text" name="snapio_installment_term" value="<?php echo $snapio_installment_term; ?>" id="input-terms" class="form-control" />
+	  </div>
+	  <div class="col-sm-2"></div>
+	  <div class="col-sm-10"><span>Input the desired Installment Terms. Separate with coma. e.g: 3,6,12</span></div>
+	</div>
+	<!-- Installment Terms -->
 
 	<div class="form-group required v2_settings sensitive">
-	  <label class="col-sm-2 control-label" for="input-merchant-id"><?php echo $entry_min_txn; ?></label>
-		<div class="col-sm-3">
+	 <label class="col-sm-2 control-label" for="input-min-txn"><span data-toggle="tooltip" title="<?php echo $help_min; ?>"><?php echo $entry_min_txn; ?></span></label>
+		<div class="col-sm-10">
 		  <input type="text" name="snapio_min_txn" value="<?php echo $snapio_min_txn; ?>" id="input-min-txn" class="form-control" />
-		</div>
-		<div class="col-sm-3">
-		 <?php if (isset($error['min_txn'])) { ?>
-		   <div class="col-sm-3"> <?php echo $error['min_txn']; ?> </div>
-		 <?php } ?>
+            <?php if ($error_min_txn) { ?>
+            <div class="text-danger"><?php echo $error_min_txn; ?></div>
+            <?php } ?>
 		</div>
 	</div>
-	<!-- minimum txn -->
+	<!-- Minimum Txn -->	
+
+	<div class="form-group">
+	 <label class="col-sm-2 control-label" for="input-bin"><?php echo $entry_bin_number; ?></label>
+	  <div class="col-sm-10">
+	   <input type="text" name="snapio_number" value="<?php echo $snapio_number; ?>" id="input-bin" class="form-control" />
+	  </div>
+	  <div class="col-sm-2"></div>
+	  <div class="col-sm-10"><span>Fill with CC BIN numbers (or bank name) that you want to allow to use this payment button.<br> Separate BIN number with coma Example: 4,5,4811,bni,mandiri.<br>Leave it blank if you are not sure!</span></div>
+	</div>
+	<!-- CC Bin -->
+
+	<div class="form-group">
+	 <label class="col-sm-2 control-label" for="input-custom-field"><span data-toggle="tooltip" title="<?php echo $help_custom_field; ?>"><?php echo $entry_custom_field; ?></span></label>
+	  <div class="col-sm-3">
+	   <input type="text" name="snapio_custom_field1" value="<?php echo $snapio_custom_field1; ?>" class="form-control" />
+	   <span>Leave it blank if you are not sure!</span>
+	  </div>
+	  <div class="col-sm-3">
+	   <input type="text" name="snapio_custom_field2" value="<?php echo $snapio_custom_field2; ?>" class="form-control" />
+	  </div>
+	  <div class="col-sm-3">
+	   <input type="text" name="snapio_custom_field3" value="<?php echo $snapio_custom_field3; ?>" class="form-control" />
+	  </div>
+	</div>
+	<!-- Custom Field  -->
 
 	<div class="form-group required">
-	 <label class="col-sm-2 control-label" for="input-merchant-id"><?php echo $entry_currency_conversion; ?></label>
-	  <div class="col-sm-3">
+	 <label class="col-sm-2 control-label" for="input-currency"><?php echo $entry_currency_conversion; ?></label>
+	  <div class="col-sm-10">
 	   <input type="text" name="snapio_currency_conversion" value="<?php echo $snapio_currency_conversion; ?>" class="form-control" />
 		<span>Set to 1 if your default currency is IDR</span>
 	  </div>
 	  <div class="col-sm-3">
 		<?php if (isset($error['currency_conversion'])) { ?>
-		<div class="col-sm-3"> <?php echo $error['currency_conversion']; ?> </div>
+		<div class="col-sm-3"> <?php echo $error_currency_conversion; ?> </div>
 		<?php } ?>
 	  </div>
 	</div>
 	<!-- Currency -->
 
 	<div class="form-group v2_vtweb_settings">
-	 <label class="col-sm-2 control-label" for="input-merchant-id"><?php echo $entry_geo_zone; ?></label>
-	  <div class="col-sm-3">
+	 <label class="col-sm-2 control-label" for="input-geo-zone"><?php echo $entry_geo_zone; ?></label>
+	  <div class="col-sm-10">
 	   <select name="snapio_geo_zone_id"  class="form-control">
 		<option value="0"><?php echo $text_all_zones; ?></option>
 		<?php foreach ($geo_zones as $geo_zone) { ?>
@@ -163,15 +191,12 @@
 	<!-- Geo Zone -->
 
 	<div class="form-group">
-	  <label class="col-sm-2 control-label" for="input-merchant-id"><?php echo $entry_sort_order; ?></label>
-		<div class="col-sm-1">
+	  <label class="col-sm-2 control-label" for="input-sort-order"><?php echo $entry_sort_order; ?></label>
+		<div class="col-sm-2">
 		 <input size="1" type="text" name="snapio_sort_order" value="<?php echo $snapio_sort_order; ?>" class="form-control" />
 		</div>
 	</div>
-	
-	<div>
-	 <center><font size="1">version 1.0</font></center>
-	</div>
+	<!-- Sort Order -->
 
    </form>
   </div>

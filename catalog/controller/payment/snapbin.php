@@ -17,7 +17,7 @@ status code
 16 voided
 */
 
-
+require_once(dirname(__FILE__) . '/snap_midtrans_version.php');
 require_once(DIR_SYSTEM . 'library/veritrans-php/Veritrans.php');
 
 class ControllerPaymentSnapbin extends Controller {
@@ -44,6 +44,9 @@ class ControllerPaymentSnapbin extends Controller {
 
     $data['process_order'] = $this->url->link('payment/snapbin/process_order');
 
+    $data['opencart_version'] = VERSION;
+    $data['mtplugin_version'] = OC2_MIDTRANS_PLUGIN_VERSION;
+    
     if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/template/payment/snapbin.tpl')) {
         return $this->load->view($this->config->get('config_template') . '/template/payment/snapbin.tpl',$data);
     } else {
@@ -238,7 +241,14 @@ class ControllerPaymentSnapbin extends Controller {
       $payloads['credit_card'] = $credit_card;
       $payloads['user_id'] = crypt( $order_info['email'], $serverKey );
     }
+    
+    if ($this->config->get('snapbin_acq_bank') !== '') {
+      $credit_card['bank'] = $this->config->get('snapbin_acq_bank');
+    }
 
+    if(!empty($this->config->get('snapbin_custom_field1'))){$payloads['custom_field1'] = $this->config->get('snapbin_custom_field1');}
+    if(!empty($this->config->get('snapbin_custom_field2'))){$payloads['custom_field2'] = $this->config->get('snapbin_custom_field2');}
+    if(!empty($this->config->get('snapbin_custom_field3'))){$payloads['custom_field3'] = $this->config->get('snapbin_custom_field3');}
 
     try {
       error_log(print_r($payloads,TRUE));

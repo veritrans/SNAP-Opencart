@@ -17,7 +17,7 @@ status code
 16 voided
 */
 
-
+require_once(dirname(__FILE__) . '/snap_midtrans_version.php');
 require_once(DIR_SYSTEM . 'library/veritrans-php/Veritrans.php');
 
 class ControllerPaymentSnapio extends Controller {
@@ -46,6 +46,9 @@ class ControllerPaymentSnapio extends Controller {
 
     $data['process_order'] = $this->url->link('payment/snapio/process_order');
 
+    $data['opencart_version'] = VERSION;
+    $data['mtplugin_version'] = OC2_MIDTRANS_PLUGIN_VERSION;
+    
     if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/template/payment/snapio.tpl')) {
         return $this->load->view($this->config->get('config_template') . '/template/payment/snapio.tpl',$data);
     } else {
@@ -224,26 +227,40 @@ class ControllerPaymentSnapio extends Controller {
 
     Veritrans_Config::$isSanitized = true;
 
-    $min_txn = $this->config->get('snapio_min_txn');
-    $credit_card['save_card'] = true;
-    $installment = array();
-    $installment_term = array();
-    
-    $installment_term['offline'] = array(1,2,3,4,5,6,7,8,9,10,11,12);
-
-    $installment['required'] = TRUE;
-    $installment['terms'] = $installment_term;    
-
-    if($transaction_details['gross_amount'] >= $min_txn){
-      $credit_card['installment'] = $installment;  
-    }
-
     $payloads = array();
     $payloads['transaction_details'] = $transaction_details;
     $payloads['item_details']        = $item_details;
     $payloads['customer_details']    = $customer_details;
     $payloads['enabled_payments']    = array('credit_card');
-    $payloads['credit_card'] = $credit_card;
+    $payloads['credit_card'] = array('credit_card');
+
+   if ($transaction_details['gross_amount'] >= $this->config->get('snapio_min_txn')){
+      // Build bank & terms array
+      $termsStr = explode(',', $this->config->get('snapio_installment_term'));
+      $terms = array();
+      foreach ($termsStr as $termStr) {
+        $terms[] = (int)$termStr;
+      };
+          
+      if ($this->config->get('snapio_acq_bank') !== '') {
+        $payloads['credit_card']['bank'] = $this->config->get('snapio_acq_bank');
+      }
+      // Add installment param
+      $payloads['credit_card']['installment']['required'] = true;
+      $payloads['credit_card']['installment']['terms'] = 
+        array(
+          'offline' => $terms
+        );
+    }
+
+    if ($this->config->get('snapio_number') !== '') {
+      $bin = explode(',', $this->config->get('snapio_number'));
+      $payloads['credit_card']['whitelist_bins'] = $bin;
+    }
+
+    if(!empty($this->config->get('snapio_custom_field1'))){$payloads['custom_field1'] = $this->config->get('snapio_custom_field1');}
+    if(!empty($this->config->get('snapio_custom_field2'))){$payloads['custom_field2'] = $this->config->get('snapio_custom_field2');}
+    if(!empty($this->config->get('snapio_custom_field3'))){$payloads['custom_field3'] = $this->config->get('snapio_custom_field3');}
 
     try {
       error_log(print_r($payloads,TRUE));
