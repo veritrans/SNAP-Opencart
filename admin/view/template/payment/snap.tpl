@@ -18,27 +18,26 @@
 </div>
 <!--header, breadcrumb & button-->
 
-
  <div class="container-fluid">
-   <div class="panel panel-default">
-    <div class="panel-heading">
-	 <h3 class="panel-title"><i class="fa fa-pencil"></i> <?php echo $text_edit; ?></h3>
-    </div>
-
    <!--error-->
-   <?php if (isset($error['error_warning'])) { ?>
-    <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php echo $error['error_warning']; ?>
+   <?php if ($error_warning) { ?>
+    <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php echo error_warning; ?>
      <button type="button" class="close" data-dismiss="alert">&times;</button>
     </div>
    <?php } ?>
    <!--error-->
 
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-pencil"></i> <?php echo $text_edit; ?></h3>
+      </div>
+
 	<div class="panel-body">
 	 <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" id="form" class="form-horizontal">
 	 <div class="form-group">
-      <label class="col-sm-2 control-label" for="input-mode"><?php echo $entry_status; ?></label>
-		<div class="col-sm-3">
-		 <select name="snap_status" id="input-mode" class="form-control">
+      <label class="col-sm-2 control-label" for="input-status"><?php echo $entry_status; ?></label>
+		<div class="col-sm-10">
+		 <select name="snap_status" id="input-status" class="form-control">
 		  <?php $options = array('1' => $text_enabled, '0' => $text_disabled) ?>
 		   <?php foreach ($options as $key => $value): ?>
 		    <option value="<?php echo $key ?>" <?php if ($key == $snap_status) echo 'selected' ?> ><?php echo $value ?></option>
@@ -49,21 +48,30 @@
 	<!-- Status -->
 
 	<div class="form-group required">
-	  <label class="col-sm-2 control-label" for="input-merchant-id"><?php echo $entry_display_name; ?></label>
-	   <div class="col-sm-3">
-		 <input type="text" name="snap_display_name" value="<?php echo $snap_display_name; ?>" id="input-merchant-id" class="form-control" />
-	   </div>
-	   <div class="col-sm-3">
-	     <?php if (isset($error['display_name'])) { ?>
-		  <div class="col-sm-3"> <?php echo $error['display_name']; ?> </div>
-		 <?php } ?>
+	  <label class="col-sm-2 control-label" for="input-display-name"><?php echo $entry_display_name; ?></label>
+	   <div class="col-sm-10">
+		 <input type="text" name="snap_display_name" value="<?php echo $snap_display_name; ?>" id="input-display-name" class="form-control" />
+            <?php if ($error_display_name) { ?>
+            <div class="text-danger"><?php echo $error_display_name; ?></div>
+            <?php } ?>
 	   </div>
 	</div>
 	<!-- Display name -->
+	
+	<div class="form-group required ">
+	  <label class="col-sm-2 control-label" for="input-merchant-id"><?php echo $entry_merchant_id; ?></label>
+	    <div class="col-sm-10">
+		  <input type="text" name="snap_merchant_id" value="<?php echo $snap_merchant_id; ?>" id="input-merchant-id" class="form-control" />
+            <?php if ($error_merchant) { ?>
+            <div class="text-danger"><?php echo $error_merchant; ?></div>
+            <?php } ?>
+		</div>
+	</div>
+	<!-- Merchant Id -->
 
-	<div class="form-group v2_settings sensitive required">
+	<div class="form-group v2_settings sensitive">
 	  <label class="col-sm-2 control-label" for="input-mode"><?php echo $entry_environment; ?></label>
-	    <div class="col-sm-3">
+	    <div class="col-sm-10">
 		  <select name="snap_environment" id="input-mode" class="form-control">
 		    <?php $options = array('development' => 'Sandbox', 'production' => 'Production') ?>
 			<?php foreach ($options as $key => $value): ?>
@@ -71,92 +79,67 @@
 			<?php endforeach ?>
 		  </select>
 		</div>
-		<div class="col-sm-3">
-		<?php if (isset($error['environment'])) { ?>
-		  <div class="col-sm-3"> <?php echo $error['environment']; ?> </div>
-		<?php } ?>
-		</div>
 	</div>
 	<!-- Environment (v2-specific) -->
-	
-	<div class="form-group required v2_settings sensitive">
-	  <label class="col-sm-2 control-label" for="input-merchant-id"><?php echo $entry_merchant_id; ?></label>
-	    <div class="col-sm-3">
-		  <input type="text" name="snap_merchant_id" value="<?php echo $snap_merchant_id; ?>" id="input-merchant-id" class="form-control" />
-		</div>
-		<div class="col-sm-3">
-		 <?php if (isset($error['merchant_id'])) { ?>
-			<div class="col-sm-3"> <?php echo $error['merchant_id']; ?> </div>
-		 <?php } ?>
-		</div>
-	</div>
 
-	<div class="form-group required v2_settings sensitive">
-	  <label class="col-sm-2 control-label" for="input-merchant-id"><?php echo $entry_client_key; ?></label>
-	    <div class="col-sm-3">
-		  <input type="text" name="snap_client_key" value="<?php echo $snap_client_key; ?>" id="input-merchant-id" class="form-control" />
-		</div>
-		<div class="col-sm-3">
-		 <?php if (isset($error['client_key'])) { ?>
-			<div class="col-sm-3"> <?php echo $error['client_key']; ?> </div>
-		 <?php } ?>
+	<div class="form-group required">
+	  <label class="col-sm-2 control-label" for="input-client-key"><?php echo $entry_client_key; ?></label>
+	    <div class="col-sm-10">
+		  <input type="text" name="snap_client_key" value="<?php echo $snap_client_key; ?>" id="input-client-key" class="form-control" />
+            <?php if ($error_client_key) { ?>
+            <div class="text-danger"><?php echo $error_client_key; ?></div>
+            <?php } ?>
 		</div>
 	</div>
 	<!-- Client Key (v2-specific) -->
 
-
-	<div class="form-group required v2_settings sensitive">
-	  <label class="col-sm-2 control-label" for="input-merchant-id"><?php echo $entry_server_key; ?></label>
-		<div class="col-sm-3">
-		  <input type="text" name="snap_server_key" value="<?php echo $snap_server_key; ?>" id="input-merchant-id" class="form-control" />
-		</div>
-		<div class="col-sm-3">
-		 <?php if (isset($error['server_key'])) { ?>
-		   <div class="col-sm-3"> <?php echo $error['server_key']; ?> </div>
-		 <?php } ?>
+	<div class="form-group required">
+	  <label class="col-sm-2 control-label" for="input-server-key"><?php echo $entry_server_key; ?></label>
+		<div class="col-sm-10">
+		  <input type="text" name="snap_server_key" value="<?php echo $snap_server_key; ?>" id="input-server-key" class="form-control" />
+            <?php if ($error_server_key) { ?>
+            <div class="text-danger"><?php echo $error_server_key; ?></div>
+            <?php } ?>
 		</div>
 	</div>
 	<!-- Server Key (v2-specific) -->
 
-	 <div class="form-group required v2_settings sensitive">
-      <label class="col-sm-2 control-label" for="input-mode"><?php echo $entry_oneclick; ?></label>
-		<div class="col-sm-3">
-		 <select name="snap_oneclick" id="input-mode" class="form-control">
+	 <div class="form-group v2_settings">
+      <label class="col-sm-2 control-label" for="input-save-card"><span data-toggle="tooltip" title="<?php echo $help_savecard; ?>"><?php echo $entry_oneclick; ?></span></label>
+		<div class="col-sm-10">
+		 <select name="snap_oneclick" id="input-save-card" class="form-control">
 		  <?php $options = array('1' => $text_enabled, '0' => $text_disabled) ?>
 		   <?php foreach ($options as $key => $value): ?>
 		    <option value="<?php echo $key ?>" <?php if ($key == $snap_oneclick) echo 'selected' ?> ><?php echo $value ?></option>
 		   <?php endforeach ?>
 		  </select>
 		</div>
+		<div class="col-sm-2"></div>
+		<div class="col-sm-10"><span>Leave it disabled if you are not sure!</span></div>
 	 </div>
-	 <!-- One Click -->
+	 <!-- Save Card -->
 
 	 <div class="form-group v2_settings sensitive">
-	  <label class="col-sm-2 control-label" for="input-mode"><?php echo $entry_expiry; ?></label>
+	  <label class="col-sm-2 control-label" for="input-expiry"><span data-toggle="tooltip" title="<?php echo $help_expiry; ?>"><?php echo $entry_expiry; ?></span></label>
 	    <div class="col-sm-3">
-			<input type="text" name="snap_expiry_duration" placeholder="filled with number"  value="<?php echo $snap_expiry_duration; ?>" id="input-merchant-id" class="form-control" />
+			<input type="text" name="snap_expiry_duration" placeholder="filled with number"  value="<?php echo $snap_expiry_duration; ?>" id="input-expiry" class="form-control" />
+			<span>Leave it blank for default.</span>
 		</div>
 	    <div class="col-sm-3">
-		  <select name="snap_expiry_unit" id="input-mode" class="form-control">
+		  <select name="snap_expiry_unit" id="input-expiry" class="form-control">
 		    <?php $options = array('minutes' => 'minutes', 'hour' => 'hour','day' => 'day') ?>
 			<?php foreach ($options as $key => $value): ?>
 			  <option value="<?php echo $key ?>" <?php if ($key == $snap_expiry_duration) echo 'selected' ?> ><?php echo $value ?></option>
 			<?php endforeach ?>
 		  </select>
 		</div>
-		<div class="col-sm-3">
-		<?php if (isset($error['environment'])) { ?>
-		  <div class="col-sm-3"> <?php echo $error['environment']; ?> </div>
-		<?php } ?>
-		</div>
 	</div>
-	<!-- custom expiry -->
+	<!-- Custom Expiry -->
 
-	<div class="form-group required">
-	 <label class="col-sm-2 control-label" for="input-merchant-id"><?php echo $entry_custom_field; ?></label>
+	<div class="form-group">
+	 <label class="col-sm-2 control-label" for="input-custom-field"><span data-toggle="tooltip" title="<?php echo $help_custom_field; ?>"><?php echo $entry_custom_field; ?></span></label>
 	  <div class="col-sm-3">
 	   <input type="text" name="snap_custom_field1" value="<?php echo $snap_custom_field1; ?>" class="form-control" />
-	   <span> 'This will allow you to set custom fields that will be displayed on Midtrans dashboard.</span>
 	  </div>
 	  <div class="col-sm-3">
 	   <input type="text" name="snap_custom_field2" value="<?php echo $snap_custom_field2; ?>" class="form-control" />
@@ -164,14 +147,13 @@
 	  <div class="col-sm-3">
 	   <input type="text" name="snap_custom_field3" value="<?php echo $snap_custom_field3; ?>" class="form-control" />
 	  </div>
-	  <div class="col-sm-12">
-	  </div>
+	  <div class="col-sm-2"></div><div class="col-sm-10"><span>Leave it blank if you are not sure!</span></div>
 	</div>
-	<!-- custom field  -->
+	<!-- Custom Field  -->
 
 	<div class="form-group required">
-	 <label class="col-sm-2 control-label" for="input-merchant-id"><?php echo $entry_currency_conversion; ?></label>
-	  <div class="col-sm-3">
+	 <label class="col-sm-2 control-label" for="input-currency"><?php echo $entry_currency_conversion; ?></label>
+	  <div class="col-sm-10">
 	   <input type="text" name="snap_currency_conversion" value="<?php echo $snap_currency_conversion; ?>" class="form-control" />
 		<span>Set to 1 if your default currency is IDR</span>
 	  </div>
@@ -184,8 +166,8 @@
 	<!-- Currency -->
 
 	<div class="form-group v2_vtweb_settings">
-	 <label class="col-sm-2 control-label" for="input-merchant-id"><?php echo $entry_geo_zone; ?></label>
-	  <div class="col-sm-3">
+	 <label class="col-sm-2 control-label" for="input-geo-zone"><?php echo $entry_geo_zone; ?></label>
+	  <div class="col-sm-10">
 	   <select name="snap_geo_zone_id"  class="form-control">
 		<option value="0"><?php echo $text_all_zones; ?></option>
 		<?php foreach ($geo_zones as $geo_zone) { ?>
@@ -201,15 +183,12 @@
 	<!-- Geo Zone -->
 
 	<div class="form-group">
-	  <label class="col-sm-2 control-label" for="input-merchant-id"><?php echo $entry_sort_order; ?></label>
-		<div class="col-sm-1">
+	  <label class="col-sm-2 control-label" for="input-sort-order"><?php echo $entry_sort_order; ?></label>
+		<div class="col-sm-2">
 		 <input size="1" type="text" name="snap_sort_order" value="<?php echo $snap_sort_order; ?>" class="form-control" />
 		</div>
 	</div>
-	
-	<div>
-	 <center><font size="1">version 1.1</font></center>
-	</div>
+	<!--- Sort Order -->
 
    </form>
   </div>

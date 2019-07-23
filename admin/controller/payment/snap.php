@@ -10,7 +10,7 @@ class ControllerPaymentSnap extends Controller {
 
     $this->load->model('setting/setting');
     $this->load->model('localisation/order_status');
-	$this->config->get('curency');
+  $this->config->get('curency');
 
 
     if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
@@ -19,6 +19,36 @@ class ControllerPaymentSnap extends Controller {
       $this->session->data['success'] = $this->language->get('text_success');
 
       $this->response->redirect($this->url->link('extension/payment', 'token=' . $this->session->data['token'], 'SSL'));
+    }
+
+    if (isset($this->error['warning'])) {
+      $data['error_warning'] = $this->error['warning'];
+    } else {
+      $data['error_warning'] = '';
+    }
+
+    if (isset($this->error['display_name'])) {
+      $data['error_display_name'] = $this->error['display_name'];
+    } else {
+      $data['error_display_name'] = '';
+    }
+    
+    if (isset($this->error['merchant_id'])) {
+      $data['error_merchant'] = $this->error['merchant_id'];
+    } else {
+      $data['error_merchant'] = '';
+    }
+
+    if (isset($this->error['server_key'])) {
+      $data['error_server_key'] = $this->error['server_key'];
+    } else {
+      $data['error_server_key'] = '';
+    }
+
+    if (isset($this->error['client_key'])) {
+      $data['error_client_key'] = $this->error['client_key'];
+    } else {
+      $data['error_client_key'] = '';
     }
 
     $language_entries = array(
@@ -31,7 +61,7 @@ class ControllerPaymentSnap extends Controller {
       'text_successful',
       'text_fail',
       'text_all_zones',
-	    'text_edit',
+      'text_edit',
 
       'entry_api_version',
       'entry_environment',
@@ -56,18 +86,16 @@ class ControllerPaymentSnap extends Controller {
       'entry_snap_challenge_mapping',
       'entry_display_name',
 
+      'help_savecard',
+      'help_expiry',
+      'help_custom_field',
+
       'button_save',
       'button_cancel'
       );
 
     foreach ($language_entries as $language_entry) {
       $data[$language_entry] = $this->language->get($language_entry);
-    }
-
-    if (isset($this->error)) {
-      $data['error'] = $this->error;
-    } else {
-      $data['error'] = array();
     }
 
     $data['breadcrumbs'] = array();
@@ -140,35 +168,24 @@ class ControllerPaymentSnap extends Controller {
     $data['geo_zones'] = $this->model_localisation_geo_zone->getGeoZones();
 
     $this->template = 'payment/snap.tpl';
-	$data['column_left'] = $this->load->controller('common/column_left');
-	$data['header'] = $this->load->controller('common/header');
-	$data['footer'] = $this->load->controller('common/footer');
-	
-	
-	if(!$this->currency->has('IDR'))
-	{
-		$data['curr'] = true;
-	}
-	else
-	{
-		$data['curr'] = false;
-	}
-	$this->response->setOutput($this->load->view('payment/snap.tpl',$data));
-	
+  $data['column_left'] = $this->load->controller('common/column_left');
+  $data['header'] = $this->load->controller('common/header');
+  $data['footer'] = $this->load->controller('common/footer');
+  
+  
+  if(!$this->currency->has('IDR'))
+  {
+    $data['curr'] = true;
+  }
+  else
+  {
+    $data['curr'] = false;
+  }
+  $this->response->setOutput($this->load->view('payment/snap.tpl',$data));
+  
   }
 
   protected function validate() {
-
-    // Override version to v2
-    $version = 2;
-
-    // temporarily always set the payment type to vtweb if the api_version == 2
-    if ($version == 2)
-      $this->request->post['snap_payment_type'] = 'vtweb';
-
-    $payment_type = $this->request->post['snap_payment_type'];
-    if (!in_array($payment_type, array('vtweb', 'vtdirect')))
-      $payment_type = 'vtweb';
 
     if (!$this->user->hasPermission('modify', 'payment/snap')) {
       $this->error['warning'] = $this->language->get('error_permission');
@@ -178,55 +195,31 @@ class ControllerPaymentSnap extends Controller {
     if (!$this->request->post['snap_display_name']) {
       $this->error['display_name'] = $this->language->get('error_display_name');
     }
+        
+    // check for empty values
+    if (!$this->request->post['snap_client_key']) {
+      $this->error['client_key'] = $this->language->get('error_client_key');
+    }
 
-    // version-specific validation
-    if ($version == 1)
-    {
-      // check for empty values
-      if ($payment_type == 'vtweb')
-      {
-        if (!$this->request->post['snap_merchant']) {
-          $this->error['merchant'] = $this->language->get('error_merchant');
-        }
+    // check for empty values
+    if (!$this->request->post['snap_server_key']) {
+      $this->error['server_key'] = $this->language->get('error_server_key');
+    }
 
-        if (!$this->request->post['snap_hash']) {
-          $this->error['hash'] = $this->language->get('error_hash');
-        }
-      } else
-      {
-        if (!$this->request->post['snap_client_key']) {
-          $this->error['client_key'] = $this->language->get('error_client_key');
-        }
-
-        if (!$this->request->post['snap_server_key']) {
-          $this->error['server_key'] = $this->language->get('error_server_key');
-        }
-      }
-    } else if ($version == 2)
-    {
-      // default values
-      if (!$this->request->post['snap_environment'])
-        $this->request->post['snap_environment'] = 1;
+    // default values
+    if (!$this->request->post['snap_environment'])
+      $this->request->post['snap_environment'] = 1;
 
       // check for empty values
-      if (!$this->request->post['snap_client_key']) {
-        $this->error['client_key'] = $this->language->get('error_client_key');
-      }
-
-      if (!$this->request->post['snap_server_key']) {
-        $this->error['server_key'] = $this->language->get('error_server_key');
-      }
+    if (!$this->request->post['snap_merchant_id']) {
+       $this->error['merchant_id'] = $this->language->get('error_merchant');
     }
 
     // currency conversion to IDR
     if (!$this->request->post['snap_currency_conversion'] && !$this->currency->has('IDR'))
       $this->error['currency_conversion'] = $this->language->get('error_currency_conversion');
 
-    if (!$this->error) {
-      return true;
-    } else {
-      return false;
-    }
+    return !$this->error;
+
   }
 }
-?>

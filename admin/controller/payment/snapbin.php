@@ -21,6 +21,36 @@ class ControllerPaymentSnapbin extends Controller {
       $this->response->redirect($this->url->link('extension/payment', 'token=' . $this->session->data['token'], 'SSL'));
     }
 
+    if (isset($this->error['warning'])) {
+      $data['error_warning'] = $this->error['warning'];
+    } else {
+      $data['error_warning'] = '';
+    }
+
+    if (isset($this->error['display_name'])) {
+      $data['error_display_name'] = $this->error['display_name'];
+    } else {
+      $data['error_display_name'] = '';
+    }
+    
+    if (isset($this->error['merchant_id'])) {
+      $data['error_merchant'] = $this->error['merchant_id'];
+    } else {
+      $data['error_merchant'] = '';
+    }
+
+    if (isset($this->error['server_key'])) {
+      $data['error_server_key'] = $this->error['server_key'];
+    } else {
+      $data['error_server_key'] = '';
+    }
+
+    if (isset($this->error['client_key'])) {
+      $data['error_client_key'] = $this->error['client_key'];
+    } else {
+      $data['error_client_key'] = '';
+    }
+
     $language_entries = array(
 
       'heading_title',
@@ -52,19 +82,18 @@ class ControllerPaymentSnapbin extends Controller {
       'entry_snapbin_challenge_mapping',
       'entry_display_name',
       'entry_bin_number',
+      'entry_acq_bank',
+      'entry_custom_field',
 
+      'help_savecard',
+      'help_custom_field',
+      
       'button_save',
       'button_cancel'
       );
 
     foreach ($language_entries as $language_entry) {
       $data[$language_entry] = $this->language->get($language_entry);
-    }
-
-    if (isset($this->error)) {
-      $data['error'] = $this->error;
-    } else {
-      $data['error'] = array();
     }
 
     $data['breadcrumbs'] = array();
@@ -109,7 +138,11 @@ class ControllerPaymentSnapbin extends Controller {
       'snapbin_display_name',
       'snapbin_enabled_payments',
       'snapbin_sanitization',
-      'snapbin_bin_number'
+      'snapbin_bin_number',
+      'snapbin_acq_bank',
+      'snapbin_custom_field1',
+      'snapbin_custom_field2',
+      'snapbin_custom_field3'
     );
 
     foreach ($inputs as $input) {
@@ -148,13 +181,6 @@ class ControllerPaymentSnapbin extends Controller {
 
   protected function validate() {
 
-    // Override version to v2
-    $version = 2;
-
-    // temporarily always set the payment type to vtweb if the api_version == 2
-    if ($version == 2)
-      $this->request->post['snapbin_payment_type'] = 'vtweb';
-
     if (!$this->user->hasPermission('modify', 'payment/snapbin')) {
       $this->error['warning'] = $this->language->get('error_permission');
     }
@@ -163,25 +189,32 @@ class ControllerPaymentSnapbin extends Controller {
     if (!$this->request->post['snapbin_display_name']) {
       $this->error['display_name'] = $this->language->get('error_display_name');
     }
+        
+    // check for empty values
+    if (!$this->request->post['snapbin_client_key']) {
+      $this->error['client_key'] = $this->language->get('error_client_key');
+    }
 
-      // default values
-    if (!$this->request->post['snapbin_environment'])
-      $this->request->post['snapbin_environment'] = 1;
-
+    // check for empty values
     if (!$this->request->post['snapbin_server_key']) {
       $this->error['server_key'] = $this->language->get('error_server_key');
     }
-    
+
+    // default values
+    if (!$this->request->post['snapbin_environment'])
+      $this->request->post['snapbin_environment'] = 1;
+
+      // check for empty values
+    if (!$this->request->post['snapbin_merchant_id']) {
+       $this->error['merchant_id'] = $this->language->get('error_merchant');
+    }
 
     // currency conversion to IDR
     if (!$this->request->post['snapbin_currency_conversion'] && !$this->currency->has('IDR'))
       $this->error['currency_conversion'] = $this->language->get('error_currency_conversion');
 
-    if (!$this->error) {
-      return true;
-    } else {
-      return false;
-    }
+    return !$this->error;
+
   }
 }
 ?>
