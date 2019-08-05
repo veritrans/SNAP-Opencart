@@ -48,7 +48,9 @@ class ControllerPaymentSnapinst extends Controller {
 
     $data['opencart_version'] = VERSION;
     $data['mtplugin_version'] = OC2_MIDTRANS_PLUGIN_VERSION;
-    
+
+    $data['disable_mixpanel'] = $this->config->get('snapinst_mixpanel');
+
     if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/template/payment/snapinst.tpl')) {
         return $this->load->view($this->config->get('config_template') . '/template/payment/snapinst.tpl',$data);
     } else {
@@ -216,18 +218,13 @@ class ControllerPaymentSnapinst extends Controller {
       $item_details[] = $coupon_item;
     }
 
-    Veritrans_Config::$serverKey = $this->config->
-        get('snapinst_server_key');
+    Veritrans_Config::$serverKey = $this->config->get('snapinst_server_key');
 
     Veritrans_Config::$isProduction =
         $this->config->get('snapinst_environment') == 'production'
         ? true : false;
 
-    Veritrans_Config::$is3ds = TRUE;
-
-    Veritrans_Config::$isSanitized =
-        $this->config->get('snapinst_sanitization') == 'on'
-        ? true : false;
+    Veritrans_Config::$isSanitized = true;
 
     // $min_txn = $this->config->get('snapinst_min_txn');
     // $credit_card['save_card'] = true;
@@ -252,7 +249,7 @@ class ControllerPaymentSnapinst extends Controller {
     $payloads['item_details']        = $item_details;
     $payloads['customer_details']    = $customer_details;
     $payloads['enabled_payments']    = array('credit_card');
-    $payloads['credit_card'] = $credit_card;
+    $payloads['credit_card']['secure'] = true;
 
     if ($transaction_details['gross_amount'] >= $this->config->get('snapinst_min_txn')){
       $payloads['credit_card'] = $credit_card;
@@ -263,7 +260,7 @@ class ControllerPaymentSnapinst extends Controller {
     if(!empty($this->config->get('snapinst_custom_field3'))){$payloads['custom_field3'] = $this->config->get('snapinst_custom_field3');}
 
     try {
-      error_log(print_r($payloads,TRUE));
+      // error_log(print_r($payloads,TRUE));
       $snapToken = Veritrans_Snap::getSnapToken($payloads);
       $this->response->setOutput($snapToken);
     }

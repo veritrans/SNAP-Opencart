@@ -74,7 +74,6 @@ class ControllerPaymentSnapinst extends Controller {
       'entry_merchant_id',
       'entry_server_key',
       'entry_client_key',
-      'entry_order_status',
       'entry_geo_zone',
       'entry_status',
       'entry_sort_order',
@@ -85,6 +84,7 @@ class ControllerPaymentSnapinst extends Controller {
       'entry_display_name',
       'entry_min_txn',
       'entry_custom_field',
+      'entry_mixpanel',
 
       'help_min',
       'help_custom_field',
@@ -141,11 +141,11 @@ class ControllerPaymentSnapinst extends Controller {
       'midtrans_snapinst_challenge_mapping',
       'snapinst_display_name',
       'snapinst_enabled_payments',
-      'snapinst_sanitization',
       'snapinst_min_txn',
       'snapinst_custom_field1',
       'snapinst_custom_field2',
-      'snapinst_custom_field3'
+      'snapinst_custom_field3',
+      'snapinst_mixpanel'
     );
 
     foreach ($inputs as $input) {

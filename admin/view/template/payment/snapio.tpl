@@ -159,6 +159,19 @@
 	</div>
 	<!-- Custom Field  -->
 
+	<div class="form-group">
+      <label class="col-sm-2 control-label" for="input-mixpanel"><?php echo $entry_mixpanel; ?></label>
+		<div class="col-sm-10">
+		 <select name="snapio_mixpanel" id="input-mixpanel" class="form-control">
+		  <?php $options = array('1' => $text_disabled, '0' => $text_enabled) ?>
+		   <?php foreach ($options as $key => $value): ?>
+		    <option value="<?php echo $key ?>" <?php if ($key == $snapio_mixpanel) echo 'selected' ?> ><?php echo $value ?></option>
+		   <?php endforeach ?>
+		  </select>
+		</div>
+	 </div>
+	 <!-- mixpanel -->
+
 	<div class="form-group required">
 	 <label class="col-sm-2 control-label" for="input-currency"><?php echo $entry_currency_conversion; ?></label>
 	  <div class="col-sm-10">

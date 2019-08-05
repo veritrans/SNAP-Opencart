@@ -19,9 +19,6 @@ $_['entry_client_key']   = 'Client Key'; // v2 API only
 $_['entry_server_key']   = 'Server Key'; // v2 API only
 $_['entry_3d_secure']    = 'Enable 3D Secure?';
 $_['entry_payment_type'] = 'Payment Type';
-$_['entry_test']         = 'Test Mode:';
-$_['entry_total']        = 'Total:<br /><span class="help">The checkout total the order must reach before this payment method becomes active.</span>';
-$_['entry_order_status'] = 'Order Status:';
 $_['entry_geo_zone']     = 'Geo Zone';
 $_['entry_status']       = 'Status';
 $_['entry_oneclick']     = 'Save Card';
@@ -33,6 +30,7 @@ $_['entry_snap_success_mapping'] = 'Map Payment Success Status to Order Status:'
 $_['entry_snap_challenge_mapping'] = 'Map Payment Challenge Status to Order Status:';
 $_['entry_snap_failure_mapping'] = 'Map Payment Failure Status to Order Status:';
 $_['entry_display_name'] = 'Display name';
+$_['entry_mixpanel']	 = 'Midtrans Mixpanel';
 
 // Help
 $_['help_savecard'] = 'This will allow your customer to save their card on the payment popup, for faster payment flow on the following purchase.';
