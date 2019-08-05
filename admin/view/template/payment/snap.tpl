@@ -69,7 +69,7 @@
 	</div>
 	<!-- Merchant Id -->
 
-	<div class="form-group v2_settings sensitive">
+	<div class="form-group sensitive">
 	  <label class="col-sm-2 control-label" for="input-mode"><?php echo $entry_environment; ?></label>
 	    <div class="col-sm-10">
 		  <select name="snap_environment" id="input-mode" class="form-control">
@@ -104,7 +104,7 @@
 	</div>
 	<!-- Server Key (v2-specific) -->
 
-	 <div class="form-group v2_settings">
+	 <div class="form-group">
       <label class="col-sm-2 control-label" for="input-save-card"><span data-toggle="tooltip" title="<?php echo $help_savecard; ?>"><?php echo $entry_oneclick; ?></span></label>
 		<div class="col-sm-10">
 		 <select name="snap_oneclick" id="input-save-card" class="form-control">
@@ -119,7 +119,7 @@
 	 </div>
 	 <!-- Save Card -->
 
-	 <div class="form-group v2_settings sensitive">
+	 <div class="form-group sensitive">
 	  <label class="col-sm-2 control-label" for="input-expiry"><span data-toggle="tooltip" title="<?php echo $help_expiry; ?>"><?php echo $entry_expiry; ?></span></label>
 	    <div class="col-sm-3">
 			<input type="text" name="snap_expiry_duration" placeholder="filled with number"  value="<?php echo $snap_expiry_duration; ?>" id="input-expiry" class="form-control" />
@@ -151,6 +151,19 @@
 	</div>
 	<!-- Custom Field  -->
 
+	<div class="form-group">
+      <label class="col-sm-2 control-label" for="input-mixpanel"><?php echo $entry_mixpanel; ?></label>
+		<div class="col-sm-10">
+		 <select name="snap_mixpanel" id="input-mixpanel" class="form-control">
+		  <?php $options = array('1' => $text_disabled, '0' => $text_enabled) ?>
+		   <?php foreach ($options as $key => $value): ?>
+		    <option value="<?php echo $key ?>" <?php if ($key == $snap_mixpanel) echo 'selected' ?> ><?php echo $value ?></option>
+		   <?php endforeach ?>
+		  </select>
+		</div>
+	 </div>
+	 <!-- mixpanel -->
+
 	<div class="form-group required">
 	 <label class="col-sm-2 control-label" for="input-currency"><?php echo $entry_currency_conversion; ?></label>
 	  <div class="col-sm-10">
@@ -165,7 +178,7 @@
 	</div>
 	<!-- Currency -->
 
-	<div class="form-group v2_vtweb_settings">
+	<div class="form-group">
 	 <label class="col-sm-2 control-label" for="input-geo-zone"><?php echo $entry_geo_zone; ?></label>
 	  <div class="col-sm-10">
 	   <select name="snap_geo_zone_id"  class="form-control">

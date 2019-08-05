@@ -68,12 +68,12 @@ class ControllerPaymentSnapbin extends Controller {
       'entry_merchant_id',
       'entry_server_key',
       'entry_oneclick',
-      'entry_order_status',
       'entry_geo_zone',
       'entry_status',
       'entry_sort_order',
       'entry_3d_secure',
       'entry_payment_type',
+      'entry_enabled_payments',
       'entry_enable_bank_installment',
       'entry_currency_conversion',
       'entry_client_key',
@@ -83,9 +83,12 @@ class ControllerPaymentSnapbin extends Controller {
       'entry_display_name',
       'entry_bin_number',
       'entry_acq_bank',
+      'entry_expiry',
       'entry_custom_field',
+      'entry_mixpanel',
 
       'help_savecard',
+      'help_expiry',
       'help_custom_field',
       
       'button_save',
@@ -140,9 +143,12 @@ class ControllerPaymentSnapbin extends Controller {
       'snapbin_sanitization',
       'snapbin_bin_number',
       'snapbin_acq_bank',
+      'snapbin_expiry_duration',
+      'snapbin_expiry_unit',
       'snapbin_custom_field1',
       'snapbin_custom_field2',
-      'snapbin_custom_field3'
+      'snapbin_custom_field3',
+      'snapbin_mixpanel'
     );
 
     foreach ($inputs as $input) {

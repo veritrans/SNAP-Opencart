@@ -68,8 +68,6 @@ class ControllerPaymentSnap extends Controller {
       'entry_merchant_id',
       'entry_server_key',
       'entry_client_key',
-      'entry_total',
-      'entry_order_status',
       'entry_geo_zone',
       'entry_status',
       'entry_oneclick',
@@ -85,6 +83,7 @@ class ControllerPaymentSnap extends Controller {
       'entry_snap_failure_mapping',
       'entry_snap_challenge_mapping',
       'entry_display_name',
+      'entry_mixpanel',
 
       'help_savecard',
       'help_expiry',
@@ -148,6 +147,7 @@ class ControllerPaymentSnap extends Controller {
       'midtrans_snap_challenge_mapping',
       'snap_display_name',
       'snap_enabled_payments',
+      'snap_mixpanel',
       'snap_sanitization'
     );
 

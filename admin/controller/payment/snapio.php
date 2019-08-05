@@ -74,9 +74,6 @@ class ControllerPaymentSnapio extends Controller {
       'entry_merchant_id',
       'entry_server_key',
       'entry_client_key',
-      'entry_test',
-      'entry_total',
-      'entry_order_status',
       'entry_geo_zone',
       'entry_status',
       'entry_sort_order',
@@ -93,6 +90,7 @@ class ControllerPaymentSnapio extends Controller {
       'entry_installment_term',
       'entry_bin_number',
       'entry_custom_field',
+      'entry_mixpanel',
 
       'help_min',
       'help_custom_field',
@@ -161,7 +159,8 @@ class ControllerPaymentSnapio extends Controller {
       'snapio_number',
       'snapio_custom_field1',
       'snapio_custom_field2',
-      'snapio_custom_field3'
+      'snapio_custom_field3',
+      'snapio_mixpanel'
     );
 
     foreach ($inputs as $input) {

@@ -104,6 +104,29 @@
 	</div>
 	<!-- Server Key (v2-specific) -->
 
+	<div class="form-group">
+	  <label class="col-sm-2 control-label" for="input-enabled-payments"><?php echo $entry_enabled_payments; ?></label>
+		<div class="col-sm-10">
+		  <input type="text" name="snapbin_enabled_payments" value="<?php echo $snapbin_enabled_payments; ?>" id="input-enabled-payments" class="form-control" />
+		  <span>Customize allowed payment method, separate payment method code with coma. e.g: bank_transfer,credit_card. <br>Leave it default if you are not sure.</span>
+		</div>
+	</div>
+	<!-- Enabled Payments -->
+
+	<div class="form-group">
+      <label class="col-sm-2 control-label" for="input-3d-secure"><?php echo $entry_3d_secure; ?></label>
+		<div class="col-sm-10">
+		 <select name="snapbin_3d_secure" id="input-3d-secure" class="form-control">
+		  <?php $options = array('1' => $text_disabled, '0' => $text_enabled) ?>
+		   <?php foreach ($options as $key => $value): ?>
+		    <option value="<?php echo $key ?>" <?php if ($key == $snapbin_3d_secure) echo 'selected' ?> ><?php echo $value ?></option>
+		   <?php endforeach ?>
+		  </select>
+		 <span>You must enable 3D Secure.<br>Please contact us if you wish to disable this feature in the Production environment.</span>
+		</div>
+	 </div>
+	<!-- 3D Secure -->
+	
 	<div class="form-group sensitive">
 	  <label class="col-sm-2 control-label" for="input-acq-bank"><?php echo $entry_acq_bank; ?></label>
 		<div class="col-sm-10">
@@ -135,6 +158,23 @@
 	 </div>
 	 <!-- One Click -->
 
+	 <div class="form-group sensitive">
+	  <label class="col-sm-2 control-label" for="input-expiry"><span data-toggle="tooltip" title="<?php echo $help_expiry; ?>"><?php echo $entry_expiry; ?></span></label>
+	    <div class="col-sm-3">
+			<input type="text" name="snapbin_expiry_duration" placeholder="filled with number" value="<?php echo $snapbin_expiry_duration; ?>" id="input-expiry" class="form-control" />
+			<span>Leave it blank for default.</span>
+		</div>
+	    <div class="col-sm-3">
+		  <select name="snapbin_expiry_unit" id="input-expiry" class="form-control">
+		    <?php $options = array('minutes' => 'minutes', 'hour' => 'hour','day' => 'day') ?>
+			<?php foreach ($options as $key => $value): ?>
+			  <option value="<?php echo $key ?>" <?php if ($key == $snapbin_expiry_duration) echo 'selected' ?> ><?php echo $value ?></option>
+			<?php endforeach ?>
+		  </select>
+		</div>
+	</div>
+	<!-- Custom Expiry -->
+
 	<div class="form-group">
 	 <label class="col-sm-2 control-label" for="input-custom-field"><span data-toggle="tooltip" title="<?php echo $help_custom_field; ?>"><?php echo $entry_custom_field; ?></span></label>
 	  <div class="col-sm-3">
@@ -149,6 +189,19 @@
 	  <div class="col-sm-2"></div><div class="col-sm-10"><span>Leave it blank if you are not sure!</span></div>
 	</div>
 	<!-- Custom Field  -->
+
+	<div class="form-group">
+      <label class="col-sm-2 control-label" for="input-mixpanel"><?php echo $entry_mixpanel; ?></label>
+		<div class="col-sm-10">
+		 <select name="snapbin_mixpanel" id="input-mixpanel" class="form-control">
+		  <?php $options = array('1' => $text_disabled, '0' => $text_enabled) ?>
+		   <?php foreach ($options as $key => $value): ?>
+		    <option value="<?php echo $key ?>" <?php if ($key == $snapbin_mixpanel) echo 'selected' ?> ><?php echo $value ?></option>
+		   <?php endforeach ?>
+		  </select>
+		</div>
+	 </div>
+	 <!-- mixpanel -->
 
 	<div class="form-group required">
 	 <label class="col-sm-2 control-label" for="input-currency"><?php echo $entry_currency_conversion; ?></label>
